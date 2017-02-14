@@ -3,6 +3,7 @@ package com.example.nikola.waterreport;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.AsyncTask;
@@ -25,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * A dummy authentication store containing known user names and passwords.
      */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{"user", "gatech"};
+    private static final String[] DUMMY_CREDENTIALS = new String[]{"user:g"};
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -116,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() != 0;
     }
 
     /**
@@ -190,7 +191,10 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = null;
             showProgress(false);
             if (success) {
-                finish();
+                Intent i = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(i);
+                mUserView.setText("");
+                mPasswordView.setText("");
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

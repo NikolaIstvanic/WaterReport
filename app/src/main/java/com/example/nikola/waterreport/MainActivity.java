@@ -15,12 +15,16 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        logoutButton = (Button) findViewById(R.id.logout_button);
+        logoutButton = (Button) findViewById(R.id.button_logout);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                logout();
             }
         });
+    }
+
+    private void logout() {
+        finish();
     }
 }
