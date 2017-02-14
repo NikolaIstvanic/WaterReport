@@ -10,13 +10,16 @@ import android.widget.Button;
  */
 
 public class MainActivity extends Activity {
+    private Button logoutButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Button logoutButton = (Button) findViewById(R.id.logout_button);
+        logoutButton = (Button) findViewById(R.id.logout_button);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                
             }
         });
     }
