@@ -1,9 +1,11 @@
-package com.example.nikola.waterreport;
+package com.example.nikola.waterreport.controllers;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.nikola.waterreport.R;
 
 /**
  * @author Nikola Istvnaic
