@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.example.nikola.waterreport.R;
 
+import java.util.regex.Pattern;
+
 /**
  * A login screen that offers login via username/password.
  */
@@ -30,6 +32,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private UserLoginTask mAuthTask = null;
     // UI references.
     private EditText mUserView;
+    private EditText mIDView;
     private EditText mPasswordView;
     private EditText mPasswordView2;
     private View mProgressView;
@@ -40,6 +43,7 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
         // Set up the login form.
         mUserView = (EditText) findViewById(R.id.reg_userame);
+        mIDView = (EditText) findViewById(R.id.reg_id);
         mPasswordView = (EditText) findViewById(R.id.reg_password);
         mPasswordView2 = (EditText) findViewById(R.id.reg_password2);
         mPasswordView2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -74,15 +78,22 @@ public class RegistrationActivity extends AppCompatActivity {
         // Reset errors.
         mUserView.setError(null);
         mPasswordView.setError(null);
-        // Store values at the time of the login attempt.
+        // Store values at the time of the registration attempt.
         String username = mUserView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        String id = mIDView.getText().toString();
+        String password1 = mPasswordView.getText().toString();
+        String password2 = mPasswordView2.getText().toString();
         boolean cancel = false;
         View focusView = null;
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (!TextUtils.isEmpty(password1) && !TextUtils.isEmpty(password2) && !isPasswordValid(password1, password2)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
+            cancel = true;
+        }
+        if (!password1.equals(password2)) {
+            mPasswordView.setError(getString(R.string.error_invalid_password));
+            focusView = mPasswordView2;
             cancel = true;
         }
         // Check for a valid username address.
@@ -95,6 +106,16 @@ public class RegistrationActivity extends AppCompatActivity {
             focusView = mUserView;
             cancel = true;
         }
+        // Check for a valid ID.
+        if (TextUtils.isEmpty(id)) {
+            mUserView.setError(getString(R.string.error_field_required));
+            focusView = mIDView;
+            cancel = true;
+        } else if (!isIDValid(id)) {
+            mUserView.setError(getString(R.string.error_invalid_email));
+            focusView = mIDView;
+            cancel = true;
+        }
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -103,7 +124,7 @@ public class RegistrationActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(username, password);
+            mAuthTask = new UserLoginTask(username, password1, id);
             mAuthTask.execute((Void) null);
         }
     }
@@ -112,8 +133,12 @@ public class RegistrationActivity extends AppCompatActivity {
         return username != null && username.length() > 0;
     }
 
-    private boolean isPasswordValid(String password) {
-        return password.length() > 0;
+    private boolean isIDValid(String id) {
+        return Pattern.matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", id);
+    }
+
+    private boolean isPasswordValid(String password1, String password2) {
+        return password1.length() > 0 && password2.length() > 0;
     }
 
     /**
@@ -142,15 +167,17 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
+     * Represents an asynchronous registration task used to authenticate the user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-        private final String mEmail;
-        private final String mPassword;
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
+        private final String mUser;
+        private final String mID;
+        private final String mPass;
+
+        UserLoginTask(String user, String id, String pass) {
+            mUser = user;
+            mID = id;
+            mPass = pass;
         }
 
         @Override
@@ -162,7 +189,8 @@ public class RegistrationActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 return false;
             }
-            Intent i = new Intent(getBaseContext(), RegistrationActivity.class);
+            // see if user already exists in database
+            Intent i = new Intent(getBaseContext(), MainActivity.class);
             startActivity(i);
             return false;
         }
