@@ -4,5 +4,5 @@ package com.example.nikola.waterreport.model;
  * @author Nikola Istvnaic
  */
 
-public class Worker {
+public class Worker extends User{
 }

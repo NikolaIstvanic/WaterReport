@@ -5,4 +5,7 @@ package com.example.nikola.waterreport.model;
  */
 
 public class Admin {
+
+
 }
+
