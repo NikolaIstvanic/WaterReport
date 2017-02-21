@@ -117,6 +117,11 @@ public class RegistrationActivity extends AppCompatActivity {
             focusView = mIDView;
             cancel = true;
         }
+        if (LoginManager.mappings.keySet().contains(username)) {
+            mUserView.setError(getString(R.string.error_exists));
+            focusView = mUserView;
+            cancel = true;
+        }
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
@@ -183,17 +188,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // see if user already exists in database
-            if (LoginManager.lookup(mUser, mPass)) {
-                // TODO: set error that user already exists
-                return false;
-            } else {
-                // TODO: attempt authentication against a network service.
-                LoginManager.mappings.put(mUser, new User(mUser, mPass, mID));
-                Intent i = new Intent(getBaseContext(), MainActivity.class);
-                startActivity(i);
-            }
-            return false; // return true or false?
+            /* add user to "database" (if you're at this point, then everything is valid to be added */
+            LoginManager.mappings.put(mUser, new User(mUser, mPass, mID));
+            Intent i = new Intent(getBaseContext(), MainActivity.class);
+            startActivity(i);
+            return true;
         }
 
         @Override
