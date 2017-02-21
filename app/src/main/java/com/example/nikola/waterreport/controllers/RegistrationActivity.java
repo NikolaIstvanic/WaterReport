@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.nikola.waterreport.R;
+import com.example.nikola.waterreport.model.User;
 
 import java.util.regex.Pattern;
 
@@ -182,17 +183,17 @@ public class RegistrationActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
             // see if user already exists in database
-            Intent i = new Intent(getBaseContext(), MainActivity.class);
-            startActivity(i);
-            return false;
+            if (LoginManager.lookup(mUser, mPass)) {
+                // TODO: set error that user already exists
+                return false;
+            } else {
+                // TODO: attempt authentication against a network service.
+                LoginManager.mappings.put(mUser, new User(mUser, mPass, mID));
+                Intent i = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(i);
+            }
+            return false; // return true or false?
         }
 
         @Override

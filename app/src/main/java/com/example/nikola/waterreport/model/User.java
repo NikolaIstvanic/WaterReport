@@ -18,6 +18,11 @@ public class User {
         mPassword = password;
     }
 
+    public User(String username, String password, String ID) {
+        this(username, password);
+        mId = ID;
+    }
+
     public boolean authenticate(String password) {
         return password == null ? false : password.equals(mPassword);
     }
