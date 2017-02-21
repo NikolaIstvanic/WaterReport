@@ -183,7 +183,9 @@ public class LoginActivity extends AppCompatActivity {
                     return pieces[1].equals(mPassword);
                 }
             }
-            // TODO: register the new account here.
+            // register the new account here.
+            Intent i = new Intent(getBaseContext(), RegistrationActivity.class);
+            startActivity(i);
             return false;
         }
 
