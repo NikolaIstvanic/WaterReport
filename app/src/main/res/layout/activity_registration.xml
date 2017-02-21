@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+    <ProgressBar
+        android:id="@+id/reg_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
     <Space
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +25,21 @@
         android:imeActionId="@+id/login"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionUnspecified"
-        android:inputType="textPassword"
+        android:maxLines="1"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.06" />
+
+    <EditText
+        android:id="@+id/reg_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/prompt_id"
+        android:imeActionId="@+id/login"
+        android:imeActionLabel="@string/action_sign_in_short"
+        android:imeOptions="actionUnspecified"
         android:maxLines="1"/>
 
     <Space
@@ -69,38 +90,43 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.06" />
 
-    <RadioButton
-        android:text="User"
-        android:layout_width="match_parent"
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/radio_user"
-        android:checked="true"
-        android:focusable="false" />
+        android:orientation="vertical">
+        <RadioButton
+            android:text="User"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radio_user"
+            android:checked="true"
+            android:focusable="false" />
 
-    <RadioButton
-        android:text="Worker"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/radio_worker"
-        android:focusable="false" />
+        <RadioButton
+            android:text="Worker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radio_worker"
+            android:focusable="false" />
 
-    <RadioButton
-        android:text="Manager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/radio_manager"
-        android:focusable="false" />
+        <RadioButton
+            android:text="Manager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radio_manager"
+            android:focusable="false" />
 
-    <RadioButton
-        android:text="Admin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/radio_admin"
-        android:focusable="false" />
+        <RadioButton
+            android:text="Admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radio_admin"
+            android:focusable="false" />
+        </RadioGroup>
 
     <Button
         android:text="Register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button_logout" />
+        android:id="@+id/reg_button" />
 </LinearLayout>
