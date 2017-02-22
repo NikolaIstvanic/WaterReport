@@ -3,7 +3,6 @@ package com.example.nikola.waterreport.model;
 /**
  * @author Nikola Istvnaic
  */
-
 public class User {
     private String mUserName;
     private String mPassword;

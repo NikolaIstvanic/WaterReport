@@ -87,13 +87,12 @@ public class RegistrationActivity extends AppCompatActivity {
         boolean cancel = false;
         View focusView = null;
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password1) && !TextUtils.isEmpty(password2) && !isPasswordValid(password1, password2)) {
+        if (!isPasswordValid(password1, password2)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
-        }
-        if (!password1.equals(password2)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+        } else if (!password1.equals(password2)) {
+            mPasswordView.setError(getString(R.string.error_not_same));
             focusView = mPasswordView2;
             cancel = true;
         }
@@ -103,7 +102,7 @@ public class RegistrationActivity extends AppCompatActivity {
             focusView = mUserView;
             cancel = true;
         } else if (!isUsernameValid(username)) {
-            mUserView.setError(getString(R.string.error_invalid_email));
+            mUserView.setError(getString(R.string.error_user));
             focusView = mUserView;
             cancel = true;
         }
@@ -113,7 +112,7 @@ public class RegistrationActivity extends AppCompatActivity {
             focusView = mIDView;
             cancel = true;
         } else if (!isIDValid(id)) {
-            mUserView.setError(getString(R.string.error_invalid_email));
+            mIDView.setError(getString(R.string.error_invalid_email));
             focusView = mIDView;
             cancel = true;
         }
@@ -140,7 +139,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private boolean isIDValid(String id) {
-        return Pattern.matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", id);
+        return Pattern.matches("[A-Za-z0-9\\._%+-]+@[A-Za-z0-9]+\\.[A-Za-z]{2,4}", id);
     }
 
     private boolean isPasswordValid(String password1, String password2) {
@@ -180,7 +179,7 @@ public class RegistrationActivity extends AppCompatActivity {
         private final String mID;
         private final String mPass;
 
-        UserLoginTask(String user, String id, String pass) {
+        UserLoginTask(String user, String pass, String id) {
             mUser = user;
             mID = id;
             mPass = pass;
@@ -190,8 +189,6 @@ public class RegistrationActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             /* add user to "database" (if you're at this point, then everything is valid to be added */
             LoginManager.mappings.put(mUser, new User(mUser, mPass, mID));
-            Intent i = new Intent(getBaseContext(), MainActivity.class);
-            startActivity(i);
             return true;
         }
 

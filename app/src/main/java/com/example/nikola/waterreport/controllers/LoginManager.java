@@ -12,8 +12,6 @@ public class LoginManager {
     public static Map<String, User> mappings = new HashMap<>();
 
     public static boolean lookup(String username, String password) {
-        if(mappings.get(username) == null || mappings.isEmpty())
-            return false;
-        return mappings.get(username).authenticate(password);
+        return !(mappings.get(username) == null || mappings.isEmpty()) && mappings.get(username).authenticate(password);
     }
 }
