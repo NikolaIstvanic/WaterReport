@@ -1,6 +1,7 @@
 package com.example.nikola.waterreport.controllers;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,13 +12,11 @@ import com.example.nikola.waterreport.R;
  * @author Nikola Istvnaic
  */
 public class MainActivity extends Activity {
-    private Button logoutButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
         super.onCreate(savedInstanceState);
-        logoutButton = (Button) findViewById(R.id.button_logout);
+        Button logoutButton = (Button) findViewById(R.id.button_logout);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -27,6 +26,7 @@ public class MainActivity extends Activity {
     }
 
     private void logout() {
-        finish();
+        Intent i = new Intent(getBaseContext(), LoginActivity.class);
+        startActivity(i);
     }
 }
