@@ -33,9 +33,7 @@ public class MainActivity extends Activity {
     private User mCurrentUser;
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
-
         setContentView(R.layout.activity_profile);
         super.onCreate(savedInstanceState);
         mSubmitProfile = (Button)findViewById(R.id.reg_Profile_Submit);
@@ -69,11 +67,11 @@ public class MainActivity extends Activity {
         String user_name = getIntent().getStringExtra(Intent.EXTRA_USER);
         mCurrentUser = LoginManager.mappings.get(user_name);
         // if the profile values are already set then display those values
-        if( mCurrentUser.getEmail() != null){
+        if (mCurrentUser.getEmail() != null) {
             mEmailAddress.setText(mCurrentUser.getEmail());
         }
 
-        if( mCurrentUser.getTitle() != null){
+        if (mCurrentUser.getTitle() != null) {
             int i  = 0;
             for (String s: legalTitles)
                if(s.equals(mCurrentUser.getTitle()))
@@ -82,7 +80,7 @@ public class MainActivity extends Activity {
                    i++;
             mTitle.setSelection(i);
         }
-        if( mCurrentUser.getHomeAddress() != null){
+        if (mCurrentUser.getHomeAddress() != null) {
             mHomeAddress.setText(mCurrentUser.getHomeAddress());
         }
     }
@@ -114,8 +112,8 @@ public class MainActivity extends Activity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
+
     private boolean isIDValid(String id) {
         return Pattern.matches("[A-Za-z0-9\\._%+-]+@[A-Za-z0-9]+\\.[A-Za-z]{2,4}", id);
     }
-
 }
