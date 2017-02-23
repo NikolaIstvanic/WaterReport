@@ -19,4 +19,10 @@
         completions."
     </string>
     <string name="title_activity_registration">RegistrationActivity</string>
+    <string-array name="title_spinner_names">
+        <item>Mr</item>
+        <item>Mrs</item>
+        <item>Ms</item>
+        <item>NA</item>
+    </string-array>
 </resources>

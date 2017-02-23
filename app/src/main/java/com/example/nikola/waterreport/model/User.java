@@ -7,7 +7,9 @@ public class User {
     private String mUserName;
     private String mPassword;
     private String mId;
-
+    private String mEmail;
+    private String mHomeAddress;
+    private String mTitle;
     public User() {}
 
     public User(String username, String password) {
@@ -23,4 +25,28 @@ public class User {
     public boolean authenticate(String password) {
         return password != null && password.equals(mPassword);
     }
+    public void setEmail(String email){
+        if(email != null)
+           mEmail = email;
+    }
+    public void setHomeAddress(String address){
+        if(address != null){
+            mHomeAddress = address;
+        }
+    }
+    public void setTitle(String title){
+        if(title != null){
+            mTitle = title;
+        }
+    }
+    public String getTitle(){
+        return mTitle;
+    }
+    public String getHomeAddress(){
+        return mHomeAddress;
+    }
+    public String getEmail(){
+        return mEmail;
+    }
+
 }
