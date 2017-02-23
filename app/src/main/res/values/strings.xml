@@ -6,7 +6,7 @@
     <string name="prompt_password">Password</string>
     <string name="prompt_id">ID (sample@mail.com)</string>
     <string name="prompt_password_again">Re-enter password</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in">Log in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -14,15 +14,21 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="error_exists">Username already exists</string>
+    <string name="error_not_exists">Username does not exist</string>
     <string name="error_user">Invalid Username</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="title_activity_registration">Registration</string>
     <string-array name="title_spinner_names">
         <item>Mr</item>
         <item>Mrs</item>
         <item>Ms</item>
         <item>NA</item>
     </string-array>
+    <string name="title_activity_welcome">Welcome</string>
+    <string name="title_activity_login">Log In</string>
+    <string name="title_activity_profile">Profile</string>
 </resources>

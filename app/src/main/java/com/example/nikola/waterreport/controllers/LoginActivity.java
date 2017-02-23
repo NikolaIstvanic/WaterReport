@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Attempts to sign in or register the account specified by the login form.
+     * Attempts to sign in the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
@@ -96,6 +96,10 @@ public class LoginActivity extends AppCompatActivity {
             cancel = true;
         } else if (!isUsernameValid(username)) {
             mUserView.setError(getString(R.string.error_invalid_email));
+            focusView = mUserView;
+            cancel = true;
+        } else if (!LoginManager.mappings.containsKey(username)) {
+            mUserView.setError((getString(R.string.error_not_exists)));
             focusView = mUserView;
             cancel = true;
         }
@@ -180,9 +184,6 @@ public class LoginActivity extends AppCompatActivity {
                     return pieces[1].equals(mPassword);
                 }
             }
-            // register the new account here.
-            Intent i = new Intent(getBaseContext(), RegistrationActivity.class);
-            startActivity(i);
             return false;
         }
 
@@ -192,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(false);
             if (success) {
                 Intent i = new Intent(getBaseContext(), MainActivity.class);
-                i.putExtra(Intent.EXTRA_USER,mUser);
+                i.putExtra(Intent.EXTRA_USER, mUser);
                 startActivity(i);
                 mUserView.setText("");
                 mPasswordView.setText("");

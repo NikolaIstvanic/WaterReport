@@ -61,8 +61,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 return false;
             }
         });
-        Button mUsernameRegisterButton = (Button) findViewById(R.id.reg_button);
-        mUsernameRegisterButton.setOnClickListener(new OnClickListener() {
+        Button reg_button = (Button) findViewById(R.id.reg_button);
+        reg_button.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptRegister();
@@ -112,7 +112,7 @@ public class RegistrationActivity extends AppCompatActivity {
         }
         // Check for a valid ID.
         if (TextUtils.isEmpty(id)) {
-            mUserView.setError(getString(R.string.error_field_required));
+            mIDView.setError(getString(R.string.error_field_required));
             focusView = mIDView;
             cancel = true;
         } else if (!isIDValid(id)) {
@@ -138,7 +138,6 @@ public class RegistrationActivity extends AppCompatActivity {
                     ((RadioButton) findViewById(R.id.radio_user)).isChecked() ? "User" :
                     ((RadioButton) findViewById(R.id.radio_manager)).isChecked() ? "Manager" :
                     ((RadioButton) findViewById(R.id.radio_worker)).isChecked() ? "Worker" : "Admin");
-
             mAuthTask.execute((Void) null);
         }
     }
@@ -211,12 +210,8 @@ public class RegistrationActivity extends AppCompatActivity {
             showProgress(false);
             if (success) {
                 // need to pass in the username to the next activity
-
-                Intent i = new Intent(getBaseContext(), MainActivity.class);
-                i.putExtra(Intent.EXTRA_USER,mUser);
+                Intent i = new Intent(getBaseContext(), LoginActivity.class);
                 startActivity(i);
-                mUserView.setText("");
-                mPasswordView.setText("");
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

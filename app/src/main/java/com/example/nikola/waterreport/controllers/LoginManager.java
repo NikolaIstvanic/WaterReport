@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Nikola Istvnaic
+ * @author Nikola Istvanic
  */
 
 public class LoginManager {
