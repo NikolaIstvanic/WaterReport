@@ -7,7 +7,6 @@ public class User {
     private String mUserName;
     private String mPassword;
     private String mId;
-    private String mEmail;
     private String mHomeAddress;
     private String mTitle;
     public User() {}
@@ -27,7 +26,7 @@ public class User {
     }
     public void setEmail(String email){
         if(email != null)
-           mEmail = email;
+           mId = email;
     }
     public void setHomeAddress(String address){
         if(address != null){
@@ -46,7 +45,7 @@ public class User {
         return mHomeAddress;
     }
     public String getEmail(){
-        return mEmail;
+        return mId;
     }
 
 }
