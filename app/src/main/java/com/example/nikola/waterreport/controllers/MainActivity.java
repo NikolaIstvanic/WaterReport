@@ -1,6 +1,7 @@
 package com.example.nikola.waterreport.controllers;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.nikola.waterreport.R;
 import com.example.nikola.waterreport.model.User;
@@ -106,7 +108,11 @@ public class MainActivity extends Activity {
         mCurrentUser.setEmail(mEmailAddress.getText().toString());
         mCurrentUser.setHomeAddress(mHomeAddress.getText().toString());
         mCurrentUser.setTitle((String) mTitle.getSelectedItem());
-
+        Context context = getApplicationContext();
+        CharSequence text = "Changes Submitted !!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
     private boolean isIDValid(String id) {
         return Pattern.matches("[A-Za-z0-9\\._%+-]+@[A-Za-z0-9]+\\.[A-Za-z]{2,4}", id);
