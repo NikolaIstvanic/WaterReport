@@ -197,6 +197,8 @@ public class RegistrationActivity extends AppCompatActivity {
             mAuthTask = null;
             showProgress(false);
             if (success) {
+                // need to pass in the username to the next activity
+
                 Intent i = new Intent(getBaseContext(), MainActivity.class);
                 startActivity(i);
                 mUserView.setText("");
