@@ -16,11 +16,18 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.nikola.waterreport.R;
+import com.example.nikola.waterreport.model.Admin;
+import com.example.nikola.waterreport.model.Manager;
 import com.example.nikola.waterreport.model.User;
+import com.example.nikola.waterreport.model.Worker;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -129,7 +136,12 @@ public class RegistrationActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(username, password1, id);
+            /* determine what kind of User the user selected */
+            mAuthTask = new UserLoginTask(username, password1, id,
+                    ((RadioButton) findViewById(R.id.radio_user)).isChecked() ? "User" :
+                    ((RadioButton) findViewById(R.id.radio_manager)).isChecked() ? "Manager" :
+                    ((RadioButton) findViewById(R.id.radio_worker)).isChecked() ? "Worker" : "Admin");
+
             mAuthTask.execute((Void) null);
         }
     }
@@ -178,17 +190,21 @@ public class RegistrationActivity extends AppCompatActivity {
         private final String mUser;
         private final String mID;
         private final String mPass;
+        private final String mType;
 
-        UserLoginTask(String user, String pass, String id) {
+        UserLoginTask(String user, String pass, String id, String type) {
             mUser = user;
             mID = id;
             mPass = pass;
+            mType = type;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             /* add user to "database" (if you're at this point, then everything is valid to be added */
-            LoginManager.mappings.put(mUser, new User(mUser, mPass, mID));
+            LoginManager.mappings.put(mUser, mType.equals("User") ? new User(mUser, mPass, mID)
+                : mType.equals("Worker") ? new Worker(mUser, mPass, mID) : mType.equals("Manager")
+                ? new Manager(mUser, mPass, mID) : new Admin(mUser, mPass, mID));
             return true;
         }
 

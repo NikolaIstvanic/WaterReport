@@ -5,4 +5,9 @@ package com.example.nikola.waterreport.model;
  */
 
 public class Manager extends Worker {
+    public Manager() {}
+
+    public Manager(String username, String password, String ID) {
+        super(username, password, ID);
+    }
 }
