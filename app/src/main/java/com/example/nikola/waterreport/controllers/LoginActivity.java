@@ -192,6 +192,7 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(false);
             if (success) {
                 Intent i = new Intent(getBaseContext(), MainActivity.class);
+                i.putExtra(Intent.EXTRA_USER,mUser);
                 startActivity(i);
                 mUserView.setText("");
                 mPasswordView.setText("");

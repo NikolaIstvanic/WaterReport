@@ -19,7 +19,6 @@
         completions."
     </string>
     <string name="title_activity_registration">RegistrationActivity</string>
-    <string name="user_name">UserName</string>
     <string-array name="title_spinner_names">
         <item>Mr</item>
         <item>Mrs</item>
