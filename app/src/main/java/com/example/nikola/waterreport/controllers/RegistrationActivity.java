@@ -17,7 +17,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.nikola.waterreport.R;
@@ -26,8 +25,6 @@ import com.example.nikola.waterreport.model.Manager;
 import com.example.nikola.waterreport.model.User;
 import com.example.nikola.waterreport.model.Worker;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Pattern;
 
 /**
