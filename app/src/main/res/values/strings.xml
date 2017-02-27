@@ -31,4 +31,5 @@
     <string name="title_activity_welcome">Welcome</string>
     <string name="title_activity_login">Log In</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_report">Report</string>
 </resources>

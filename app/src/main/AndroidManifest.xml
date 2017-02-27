@@ -34,5 +34,9 @@
         <activity
             android:name=".controllers.ProfileActivity"
             android:label="@string/title_activity_profile" />
+        <activity
+            android:name=".controllers.ReportActivity"
+            android:label="@string/title_activity_report" />
     </application>
+
 </manifest>
