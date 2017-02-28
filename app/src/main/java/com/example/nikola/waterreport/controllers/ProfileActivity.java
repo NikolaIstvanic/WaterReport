@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.nikola.waterreport.R;
+import com.example.nikola.waterreport.model.Singleton;
 import com.example.nikola.waterreport.model.User;
 
 import java.util.Arrays;
@@ -52,7 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
         mTitle.setAdapter(adap);
         // get the current user
         String user_name = getIntent().getExtras().getString(Intent.EXTRA_USER);
-        mCurrentUser = LoginManager.mappings.get(user_name);
+        mCurrentUser = Singleton.mappings.get(user_name);
         // if the profile values are already set then display those values
         if (mCurrentUser.getEmail() != null) {
             mEmailAddress.setText(mCurrentUser.getEmail());

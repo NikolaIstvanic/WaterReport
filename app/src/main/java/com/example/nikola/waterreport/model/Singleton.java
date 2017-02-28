@@ -1,6 +1,4 @@
-package com.example.nikola.waterreport.controllers;
-
-import com.example.nikola.waterreport.model.User;
+package com.example.nikola.waterreport.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +7,7 @@ import java.util.Map;
  * @author Nikola Istvanic
  */
 
-public class LoginManager {
+public class Singleton {
     /**
      * variable for storing mapping betweeen Username and User
      */

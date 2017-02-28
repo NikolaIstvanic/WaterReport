@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.nikola.waterreport.R;
 import com.example.nikola.waterreport.model.Admin;
 import com.example.nikola.waterreport.model.Manager;
+import com.example.nikola.waterreport.model.Singleton;
 import com.example.nikola.waterreport.model.User;
 import com.example.nikola.waterreport.model.Worker;
 
@@ -120,7 +121,7 @@ public class RegistrationActivity extends AppCompatActivity {
             focusView = mIDView;
             cancel = true;
         }
-        if (LoginManager.mappings.keySet().contains(username)) {
+        if (Singleton.mappings.keySet().contains(username)) {
             mUserView.setError(getString(R.string.error_exists));
             focusView = mUserView;
             cancel = true;

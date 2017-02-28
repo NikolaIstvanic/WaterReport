@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.nikola.waterreport.R;
+import com.example.nikola.waterreport.model.Singleton;
 
 /**
  * A login screen that offers login via username/password.
@@ -98,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
             mUserView.setError(getString(R.string.error_invalid_email));
             focusView = mUserView;
             cancel = true;
-        } else if (!LoginManager.mappings.containsKey(username)) {
+        } else if (!Singleton.mappings.containsKey(username)) {
             mUserView.setError((getString(R.string.error_not_exists)));
             focusView = mUserView;
             cancel = true;
@@ -174,8 +175,8 @@ public class LoginActivity extends AppCompatActivity {
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
             // check username to User hashmap
-            if (LoginManager.mappings.keySet().contains(mUser)) {
-                return LoginManager.lookup(mUser, mPassword);
+            if (Singleton.mappings.keySet().contains(mUser)) {
+                return Singleton.lookup(mUser, mPassword);
             }
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
