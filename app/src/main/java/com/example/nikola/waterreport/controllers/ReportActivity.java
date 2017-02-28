@@ -2,7 +2,6 @@ package com.example.nikola.waterreport.controllers;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.example.nikola.waterreport.R;
 
