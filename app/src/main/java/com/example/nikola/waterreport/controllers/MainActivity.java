@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
                 startActivity(i);
             }
         });
-        Button submit = (Button) findViewById(R.id.submit_report);
+        Button submit = (Button) findViewById(R.id.submit);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

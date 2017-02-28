@@ -12,6 +12,10 @@ public class Singleton {
      * variable for storing mapping betweeen Username and User
      */
     public static Map<String, User> mappings = new HashMap<>();
+    /**
+     * variable for storing how many water reports have been entered
+     */
+    public static int id_num = 0;
 
     /**
      *

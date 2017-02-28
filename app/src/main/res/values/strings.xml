@@ -19,9 +19,9 @@
     <string name="logout">Logout</string>
     <string name="profile">Profile</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+        completions."</string>
     <string name="submit">Submit Report</string>
+    <string name="location_label_label">Location:</string>
     <string name="title_activity_registration">Registration</string>
     <string-array name="title_spinner_names">
         <item>Mr</item>
