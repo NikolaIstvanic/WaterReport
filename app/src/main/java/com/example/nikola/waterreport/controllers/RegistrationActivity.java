@@ -199,7 +199,7 @@ public class RegistrationActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             /* add user to "database" (if you're at this point, then everything is valid to be added */
-            LoginManager.mappings.put(mUser, mType.equals("User") ? new User(mUser, mPass, mID)
+            Singleton.mappings.put(mUser, mType.equals("User") ? new User(mUser, mPass, mID)
                 : mType.equals("Worker") ? new Worker(mUser, mPass, mID) : mType.equals("Manager")
                 ? new Manager(mUser, mPass, mID) : new Admin(mUser, mPass, mID));
             return true;
