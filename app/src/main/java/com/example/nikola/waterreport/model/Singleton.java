@@ -1,5 +1,7 @@
 package com.example.nikola.waterreport.model;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ public class Singleton {
      * variable for storing mapping betweeen Username and User
      */
     public static Map<String, User> mappings = new HashMap<>();
+    public static ArrayList<WaterReport> pseudoDB = new ArrayList<WaterReport>();
     /**
      * variable for storing how many water reports have been entered
      */
@@ -26,4 +29,6 @@ public class Singleton {
     public static boolean lookup(String username, String password) {
         return !(mappings.get(username) == null || mappings.isEmpty()) && mappings.get(username).authenticate(password);
     }
+
+
 }
