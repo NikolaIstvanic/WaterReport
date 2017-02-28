@@ -32,5 +32,14 @@ public class MainActivity extends Activity {
                 startActivity(i);
             }
         });
+        Button submit = (Button) findViewById(R.id.submit_report);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), ReportActivity.class);
+                i.putExtra(Intent.EXTRA_USER, getIntent().getExtras().getString(Intent.EXTRA_USER));
+                startActivity(i);
+            }
+        });
     }
 }

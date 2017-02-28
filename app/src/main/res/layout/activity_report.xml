@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
@@ -11,46 +11,47 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
-    <Space
+
+    <Button
+        android:text="Register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.06" />
+        android:id="@+id/submit_report"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/text_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:maxLines="1"/>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.06" />
-
-    <TextView
-        android:id="@+id/report_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:maxLines="1"/>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.06" />
+        android:maxLines="1"
+        android:layout_below="@+id/reg_progress"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:maxLines="1"/>
+        android:maxLines="1"
+        android:layout_below="@+id/report_number"
+        android:layout_toRightOf="@+id/reg_progress"
+        android:layout_toEndOf="@+id/reg_progress"
+        android:layout_marginTop="38dp" />
 
-    <Space
+    <TextView
+        android:id="@+id/report_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.06" />
+        android:textSize="30sp"
+        android:maxLines="1"
+        android:layout_below="@+id/text_time"
+        android:layout_toRightOf="@+id/reg_progress"
+        android:layout_toEndOf="@+id/reg_progress"
+        android:layout_marginTop="34dp" />
 
     <EditText
         android:id="@+id/location"
@@ -61,16 +62,10 @@
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionUnspecified"
         android:inputType="textPassword"
-        android:maxLines="1"/>
+        android:maxLines="1"
+        android:layout_below="@+id/user_name"
+        android:layout_toRightOf="@+id/reg_progress"
+        android:layout_toEndOf="@+id/reg_progress"
+        android:layout_marginTop="43dp" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.06" />
-
-    <Button
-        android:text="Register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/reg_button" />
-</LinearLayout>
+</RelativeLayout>
