@@ -93,4 +93,13 @@ public class WaterReport {
         WaterReport that = (WaterReport) a;
         return id == that.id;
     }
+
+    /**
+     * String representation of WaterReport
+     * @return WaterReport as a String with all metadata listed
+     */
+    @Override
+    public String toString() {
+        return "ID: " + id + "\nCreated on: " + time + "\nCreated by: " + userName + "\nSource: " + source + "\nCondition: " + condition;
+    }
 }

@@ -38,17 +38,6 @@ public class ReportActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.text_time)).setText("Date: " + sdf.format(new Date()));
         ((TextView) findViewById(R.id.user_name)).setText("Username: " + getIntent().getExtras().getString(Intent.EXTRA_USER));
         ((TextView) findViewById(R.id.report_number)).setText("Report ID: " + ++Singleton.id_num);
-        EditText locationView = (EditText) findViewById(R.id.location);
-        locationView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    submitReport();
-                    return true;
-                }
-                return false;
-            }
-        });
         final Button submitReport = (Button) findViewById(R.id.submit_report);
         submitReport.setOnClickListener(new View.OnClickListener() {
             @Override
