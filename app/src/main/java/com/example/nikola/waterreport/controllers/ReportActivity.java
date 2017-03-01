@@ -63,7 +63,7 @@ public class ReportActivity extends AppCompatActivity {
         adap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         source.setAdapter(adap);
 
-        List<String> legalTypes = Arrays.asList(res.getStringArray(R.array.type_spinner_values));
+        List<String> legalTypes = Arrays.asList(res.getStringArray(R.array.condition_spinner_values));
         ArrayAdapter<String> a = new ArrayAdapter(this,android.R.layout.simple_spinner_item, legalTypes);
         a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         condition.setAdapter(a);
@@ -72,7 +72,7 @@ public class ReportActivity extends AppCompatActivity {
     private void submitReport() {
         Singleton.pseudoDB.add(new WaterReport(String.valueOf(((TextView) findViewById(R.id.user_name)).getText()),
                 String.valueOf(((TextView) findViewById(R.id.text_time)).getText()),
-                Integer.parseInt(String.valueOf(((TextView) findViewById(R.id.report_number)).getText())),
+                Integer.parseInt(String.valueOf(((TextView) findViewById(R.id.report_number)).getText()).split(": ")[1]),
                 String.valueOf(((TextView) findViewById(R.id.location)).getText()),
                 (String) source.getSelectedItem(), (String) condition.getSelectedItem()));
         Context context = getApplicationContext();

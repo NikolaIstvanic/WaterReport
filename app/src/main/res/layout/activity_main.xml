@@ -38,17 +38,36 @@
                 android:text="@string/profile"
                 android:textStyle="bold" />
         </LinearLayout>
-
     </LinearLayout>
 
-    <Button
-        android:id="@+id/submit"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="?android:textAppearanceSmall"
-        android:text="@string/submit"
-        android:textStyle="bold"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true">
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="178dp"
+            android:layout_height="wrap_content"
+            style="?android:textAppearanceSmall"
+            android:text="@string/submit"
+            android:textStyle="bold"
+            android:layout_gravity="left"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <Button
+            android:id="@+id/viewAll"
+            android:layout_width="178dp"
+            android:layout_height="wrap_content"
+            style="?android:textAppearanceSmall"
+            android:text="@string/view_all"
+            android:textStyle="bold"
+            android:layout_gravity="left"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </LinearLayout>
 </RelativeLayout>
