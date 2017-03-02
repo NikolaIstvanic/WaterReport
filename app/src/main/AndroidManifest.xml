@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".controllers.WelcomeActivity"
-            android:label="@string/title_activity_welcome">
+            android:label="Water Report">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
