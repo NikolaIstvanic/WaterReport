@@ -18,8 +18,7 @@
     <string name="error_user">Invalid Username</string>
     <string name="logout">Logout</string>
     <string name="profile">Profile</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="submit">Submit Report</string>
     <string name="view_all">View Reports</string>
     <string name="location_label_label">Location:</string>
