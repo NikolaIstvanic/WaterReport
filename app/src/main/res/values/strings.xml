@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WaterReport</string>
+    <string name="app_name">Water Report</string>
 
     <!-- Strings related to login -->
     <string name="prompt_user">Username</string>
