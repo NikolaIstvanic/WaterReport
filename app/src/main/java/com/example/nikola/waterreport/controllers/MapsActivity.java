@@ -55,8 +55,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // Setting the position for the marker
                 markerOptions.position(latLng);
 
-
-
                 // Clears the previously touched position
                 // mMap.clear();
 
