@@ -1,8 +1,11 @@
 package com.example.nikola.waterreport.controllers;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,7 +14,7 @@ import com.example.nikola.waterreport.R;
 /**
  * @author Nikola Istvanic
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +52,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        Intent i = new Intent(getBaseContext(), MapsActivity.class);
-        startActivity(i);
     }
 }

@@ -1,33 +1,27 @@
 package com.example.nikola.waterreport.controllers;
 
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.nikola.waterreport.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
+public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_map_fragment, container, false);
     }
-
 
     /**
      * Manipulates the map once available.
@@ -43,51 +37,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         // Setting a click event handler for the map
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-
             @Override
             public void onMapClick(LatLng latLng) {
-
-
-
                 // Creating a marker
                 MarkerOptions markerOptions = new MarkerOptions();
-
                 // Setting the position for the marker
                 markerOptions.position(latLng);
-
                 // Clears the previously touched position
                 // mMap.clear();
-
                 // Setting the title for the marker.
                 // This will be displayed on taping the marker
-
                 // Animating to the touched position
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-
                 // Placing a marker on the touched position
                 mMap.addMarker(markerOptions);
             }
         });
-
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());
     }
 
     class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
-
         private final View myContentsView;
 
-        CustomInfoWindowAdapter(){
-            myContentsView = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+        CustomInfoWindowAdapter() {
+            myContentsView = getLayoutInflater(null).inflate(R.layout.custom_info_contents, null);
         }
 
         @Override
         public View getInfoContents(Marker marker) {
-
-            TextView tvTitle = ((TextView)myContentsView.findViewById(R.id.title));
+            TextView tvTitle = ((TextView) myContentsView.findViewById(R.id.title));
             tvTitle.setText(marker.getTitle());
-            TextView tvSnippet = ((TextView)myContentsView.findViewById(R.id.snippet));
+            TextView tvSnippet = ((TextView) myContentsView.findViewById(R.id.snippet));
             tvSnippet.setText(marker.getSnippet());
-
             return myContentsView;
         }
 

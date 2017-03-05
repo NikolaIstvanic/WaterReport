@@ -40,6 +40,12 @@
                 android:text="@string/profile"
                 android:textStyle="bold" />
         </LinearLayout>
+
+        <fragment
+            android:name="com.example.nikola.waterreport.controllers.MapFragment"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="440dp"/>
     </LinearLayout>
 
     <LinearLayout
