@@ -52,5 +52,4 @@
     <string name="title_activity_report">Report</string>
     <string name="title_activity_view_all">ViewAllActivity</string>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_map_fragment">MapFragmentActivity</string>
 </resources>
