@@ -15,6 +15,8 @@
     <string name="error_field_required">This field is required</string>
     <string name="error_exists">Username already exists</string>
     <string name="error_not_exists">Username does not exist</string>
+    <string name="error_empty_location">Empty location</string>
+    <string name="error_invalid_location">Invalid location</string>
     <string name="error_user">Invalid Username</string>
     <string name="logout">Logout</string>
     <string name="profile">Profile</string>
