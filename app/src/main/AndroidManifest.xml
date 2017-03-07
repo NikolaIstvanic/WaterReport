@@ -50,5 +50,8 @@
         <activity
             android:name=".controllers.ViewAllActivity"
             android:label="@string/title_activity_view_all" />
+        <activity
+            android:name=".controllers.MapActivity"
+            android:label="@string/title_activity_maps" />
     </application>
 </manifest>

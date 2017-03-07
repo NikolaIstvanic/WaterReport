@@ -105,12 +105,10 @@ public class LoginActivity extends AppCompatActivity {
             cancel = true;
         }
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+            // There was an error; don't attempt login and focus the first form field with an error.
             focusView.requestFocus();
         } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
+            // Show a progress spinner, and kick off a background task to perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(username, password);
             mAuthTask.execute((Void) null);
@@ -160,12 +158,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
+     * Represents an asynchronous login/registration task used to authenticate the user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
         private final String mUser;
         private final String mPassword;
+
         UserLoginTask(String user, String password) {
             mUser = user;
             mPassword = password;

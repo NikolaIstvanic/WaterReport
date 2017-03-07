@@ -40,12 +40,6 @@
                 android:text="@string/profile"
                 android:textStyle="bold" />
         </LinearLayout>
-
-        <fragment
-            android:name="com.example.nikola.waterreport.controllers.MapFragment"
-            android:id="@+id/map"
-            android:layout_width="match_parent"
-            android:layout_height="440dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -76,4 +70,12 @@
             android:layout_gravity="left"
             tools:ignore="RtlHardcoded" />
     </LinearLayout>
+
+    <Button
+        android:text="Map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/Map" />
 </RelativeLayout>
