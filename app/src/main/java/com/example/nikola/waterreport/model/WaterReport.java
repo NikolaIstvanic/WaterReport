@@ -10,6 +10,8 @@ public class WaterReport {
     private String location;
     private String source;
     private String condition;
+    private double lat;
+    private double lng;
 
     /**
      * Constructor for WaterReport object
@@ -20,13 +22,15 @@ public class WaterReport {
      * @param source Source chosen by the user
      * @param conditon Condition chosen by the user
      */
-    public WaterReport(String userName, String time, int id, String location, String source, String conditon) {
+    public WaterReport(String userName, String time, int id, String location, String source, String conditon, double lat, double lng) {
         this.userName = userName;
         this.time = time;
         this.id = id;
         this.location = location;
         this.source = source;
         this.condition = conditon;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     /**
@@ -100,6 +104,8 @@ public class WaterReport {
      */
     @Override
     public String toString() {
-        return "ID: " + id + "\nCreated on " + time + "\nCreated by " + userName + "\nSource: " + source + "\nCondition: " + condition + "\nLocation: " + location + "\n\n";
+        return "ID: " + id + "\nCreated on " + time + "\nCreated by " + userName + "\nSource: "
+                + source + "\nCondition: " + condition + "\nLocation: " + location
+                + "\nLatitude: " + lat + "\nLongitude: " + lng + "\n\n";
     }
 }
