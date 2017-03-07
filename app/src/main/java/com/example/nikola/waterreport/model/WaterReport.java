@@ -100,6 +100,6 @@ public class WaterReport {
      */
     @Override
     public String toString() {
-        return "ID: " + id + "\nCreated on: " + time + "\nCreated by: " + userName + "\nSource: " + source + "\nCondition: " + condition;
+        return "ID: " + id + "\nCreated on: " + time + "\nCreated by: " + userName + "\nSource: " + source + "\nCondition: " + condition + "\nLocation: " + location + "\n\n";
     }
 }
