@@ -3,9 +3,12 @@ package com.example.nikola.waterreport.controllers;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,6 +21,7 @@ import com.example.nikola.waterreport.R;
 import com.example.nikola.waterreport.model.Singleton;
 import com.example.nikola.waterreport.model.WaterReport;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -43,7 +47,11 @@ public class ReportActivity extends AppCompatActivity {
         submitReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submitReport();
+                try {
+                    submitReport();
+                } catch (IOException e) {
+
+                }
             }
         });
         /* setup spinner values */
@@ -59,7 +67,7 @@ public class ReportActivity extends AppCompatActivity {
         condition.setAdapter(a);
     }
 
-    private void submitReport() {
+    private void submitReport() throws IOException {
         // Reset errors.
         mLocation.setError(null);
         // Store values at the time of the login attempt.
@@ -70,17 +78,21 @@ public class ReportActivity extends AppCompatActivity {
             mLocation.setError(getString(R.string.error_empty_location));
             cancel = true;
         }
+        Geocoder gc = new Geocoder(this);
+        List<Address> list = gc.getFromLocationName(location, 1);
+        Address add = list.get(0);
+        String locality = add.getLocality();
+        double lat = add.getLatitude();
+        double lng = add.getLongitude();
+        Log.d("TEST", locality);
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
+            // There was an error; don't attempt submit and focus the location field
             mLocation.requestFocus();
         } else {
-            // log water report.
-            Singleton.id_num++;
+            // log water report
             Singleton.pseudoDB.add(new WaterReport(String.valueOf(((TextView) findViewById(R.id.user_name)).getText()),
                     String.valueOf(((TextView) findViewById(R.id.text_time)).getText()),
-                    Integer.parseInt(String.valueOf(((TextView) findViewById(R.id.report_number)).getText()).split(": ")[1]),
-                    String.valueOf(mLocation.getText()), (String) source.getSelectedItem(), (String) condition.getSelectedItem()));
+                    ++Singleton.id_num, String.valueOf(mLocation.getText()), (String) source.getSelectedItem(), (String) condition.getSelectedItem(), lat, lng));
             Context context = getApplicationContext();
             CharSequence text = "Report Submitted !!";
             int duration = Toast.LENGTH_SHORT;
