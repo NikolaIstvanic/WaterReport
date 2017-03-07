@@ -19,7 +19,9 @@ import android.widget.Toast;
 
 import com.example.nikola.waterreport.R;
 import com.example.nikola.waterreport.model.Singleton;
+import com.example.nikola.waterreport.model.User;
 import com.example.nikola.waterreport.model.WaterReport;
+import com.example.nikola.waterreport.model.Worker;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -90,9 +92,10 @@ public class ReportActivity extends AppCompatActivity {
             mLocation.requestFocus();
         } else {
             // log water report
+            User currentUser = Singleton.mappings.get(getIntent().getExtras().getString(Intent.EXTRA_USER));
             Singleton.pseudoDB.add(new WaterReport(String.valueOf(((TextView) findViewById(R.id.user_name)).getText()),
                     String.valueOf(((TextView) findViewById(R.id.text_time)).getText()),
-                    ++Singleton.id_num, String.valueOf(mLocation.getText()), (String) source.getSelectedItem(), (String) condition.getSelectedItem(), lat, lng));
+                    ++Singleton.id_num, String.valueOf(mLocation.getText()), (String) source.getSelectedItem(), (currentUser instanceof Worker ? (String) condition.getSelectedItem() : "Unknown"), lat, lng));
             Context context = getApplicationContext();
             CharSequence text = "Report Submitted !!";
             int duration = Toast.LENGTH_SHORT;

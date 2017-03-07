@@ -111,7 +111,9 @@ public class WaterReport {
             return true;
         }
         WaterReport that = (WaterReport) a;
-        return id == that.id;
+        return this.getSource().equals(that.getSource())
+                && this.getLat() == that.getLat()
+                && this.getLng() == that.getLng();
     }
 
     /**

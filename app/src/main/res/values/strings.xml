@@ -44,6 +44,7 @@
         <item>Treatable-Clear</item>
         <item>Treatable-Muddy</item>
         <item>Potable</item>
+        <item>Unknown</item>
     </string-array>
     <string name="title_activity_welcome">Welcome</string>
     <string name="title_activity_login">Log In</string>

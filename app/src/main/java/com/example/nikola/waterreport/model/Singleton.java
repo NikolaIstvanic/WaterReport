@@ -1,8 +1,10 @@
 package com.example.nikola.waterreport.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.Map;
 
 /**
@@ -16,7 +18,7 @@ public class Singleton {
     /**
      * Database of submitted WaterReports
      */
-    public static List<WaterReport> pseudoDB = new ArrayList<>();
+    public static Set<WaterReport> pseudoDB = new HashSet<>();
     /**
      * variable for storing how many water reports have been entered
      */
