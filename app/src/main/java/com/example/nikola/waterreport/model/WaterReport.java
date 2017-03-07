@@ -82,6 +82,22 @@ public class WaterReport {
     }
 
     /**
+     * Getter for latitude
+     * @return latitude for this WaterReport
+     */
+    public double getLat() {
+        return lat;
+    }
+
+    /**
+     * Getter for longitude
+     * @return longitude for this WaterReport
+     */
+    public double getLng() {
+        return lng;
+    }
+
+    /**
      * Equality of WaterReports is determined by ID.
      * @param a The object that you are comparing it to
      * @return true if the id of the object is equal to this objects id, false otherwise
