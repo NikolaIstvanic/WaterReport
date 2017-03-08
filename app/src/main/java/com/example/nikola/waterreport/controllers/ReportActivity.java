@@ -8,7 +8,6 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,13 +55,16 @@ public class ReportActivity extends AppCompatActivity {
         });
         /* setup spinner values */
         Resources res = getResources();
-        List<String> legalLocations = Arrays.asList(res.getStringArray(R.array.type_spinner_values));
-        ArrayAdapter<String> adap = new ArrayAdapter(this,android.R.layout.simple_spinner_item, legalLocations);
+        List<String> legalLocations = Arrays.asList(res.getStringArray(
+                R.array.type_spinner_values));
+        ArrayAdapter<String> adap = new ArrayAdapter<>
+                (this,android.R.layout.simple_spinner_item, legalLocations);
         adap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         source.setAdapter(adap);
-
-        List<String> legalTypes = Arrays.asList(res.getStringArray(R.array.condition_spinner_values));
-        ArrayAdapter<String> a = new ArrayAdapter(this,android.R.layout.simple_spinner_item, legalTypes);
+        List<String> legalTypes = Arrays.asList(res.getStringArray(
+                R.array.condition_spinner_values));
+        ArrayAdapter<String> a = new ArrayAdapter<>
+                (this,android.R.layout.simple_spinner_item, legalTypes);
         a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         condition.setAdapter(a);
     }
@@ -81,18 +83,19 @@ public class ReportActivity extends AppCompatActivity {
         Geocoder gc = new Geocoder(this);
         List<Address> list = gc.getFromLocationName(location, 1);
         Address add = list.get(0);
-        String locality = add.getLocality();
         double lat = add.getLatitude();
         double lng = add.getLongitude();
-        Log.d("TEST", locality);
         if (cancel) {
             // There was an error; don't attempt submit and focus the location field
             mLocation.requestFocus();
         } else {
             // log water report
-            Singleton.pseudoDB.add(new WaterReport(String.valueOf(((TextView) findViewById(R.id.user_name)).getText()),
+            Singleton.pseudoDB.add(new WaterReport(
+                    String.valueOf(((TextView) findViewById(R.id.user_name)).getText()),
                     String.valueOf(((TextView) findViewById(R.id.text_time)).getText()),
-                    ++Singleton.id_num, String.valueOf(mLocation.getText()), (String) source.getSelectedItem(), (String) condition.getSelectedItem(), lat, lng));
+                    ++Singleton.id_num, String.valueOf(mLocation.getText()),
+                    (String) source.getSelectedItem(),
+                    (String) condition.getSelectedItem(), lat, lng));
             Context context = getApplicationContext();
             CharSequence text = "Report Submitted !!";
             int duration = Toast.LENGTH_SHORT;

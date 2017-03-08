@@ -53,5 +53,8 @@
         <activity
             android:name=".controllers.MapActivity"
             android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".controllers.GoogleMapActivity"
+            android:label="Here" />
     </application>
 </manifest>
