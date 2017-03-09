@@ -1,11 +1,7 @@
 package com.example.nikola.waterreport.controllers;
 
-import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.nikola.waterreport.R;
 import com.example.nikola.waterreport.model.Singleton;
@@ -18,83 +14,37 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import android.view.View;
+import android.widget.TextView;
+
 import java.util.List;
 
-/**
- * @author Nikola Istvanic
- */
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_google_map);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        Button logout = (Button) findViewById(R.id.logout);
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                Intent i = new Intent(getBaseContext(), WelcomeActivity.class);
-                startActivity(i);
-            }
-        });
-        Button profile = (Button) findViewById(R.id.profile);
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, ProfileActivity.class);
-                i.putExtra(Intent.EXTRA_USER, getIntent().getExtras().getString(Intent.EXTRA_USER));
-                startActivityForResult(i, 0);
-            }
-        });
-        Button submit = (Button) findViewById(R.id.submit);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, ReportActivity.class);
-                i.putExtra(Intent.EXTRA_USER, getIntent().getExtras().getString(Intent.EXTRA_USER));
-                startActivityForResult(i, 0);
-            }
-        });
-        Button view = (Button) findViewById(R.id.viewAll);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, ViewAllActivity.class);
-                startActivityForResult(i, 0);
-            }
-        });
     }
 
     /**
+     * Called when the map is ready.
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera.
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
+     *
+     * @param googleMap the given GoogleMap object
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        displayToMap();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        displayToMap();
-    }
-
-    /**
-     * Method which takes all WaterReports in the pseudo database and adds them to the GoogleMap.
-     * Called after the end of each Activity which is not Main (acts like a refresher).
-     */
-    public void displayToMap() {
         List<WaterReport> reportList = Singleton.pseudoDB;
         for (WaterReport wr : reportList) {
             LatLng loc = new LatLng(wr.getLat(), wr.getLng());
@@ -103,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             + "\nSource: " + wr.getSource()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
-        mMap.setInfoWindowAdapter(new MainActivity.CustomInfoWindowAdapter());
+        mMap.setInfoWindowAdapter(new GoogleMapActivity.CustomInfoWindowAdapter());
     }
 
     class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
