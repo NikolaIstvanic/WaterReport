@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Nikola Istvanic
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      * Called after the end of each Activity which is not Main (acts like a refresher).
      */
     public void displayToMap() {
-        List<WaterReport> reportList = Singleton.pseudoDB;
+        Set<WaterReport> reportList = Singleton.pseudoDB;
         for (WaterReport wr : reportList) {
             LatLng loc = new LatLng(wr.getLat(), wr.getLng());
             mMap.addMarker(new MarkerOptions().position(loc).title(wr.getUserName()).snippet(
