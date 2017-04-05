@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, ViewAllActivity.class);
                 User currentUser = Singleton.mappings.get(getIntent().getExtras().getString(Intent.EXTRA_USER));
+
                 if( currentUser instanceof Manager) {
                     startActivityForResult(i, 0);
                 }

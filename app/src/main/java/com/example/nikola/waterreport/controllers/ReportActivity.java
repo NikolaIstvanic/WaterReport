@@ -23,7 +23,9 @@ import com.example.nikola.waterreport.model.User;
 import com.example.nikola.waterreport.model.WaterReport;
 import com.example.nikola.waterreport.model.Worker;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -102,6 +104,31 @@ public class ReportActivity extends AppCompatActivity {
                     (currentUser instanceof Worker || currentUser instanceof Manager ? (String) condition.getSelectedItem() : "Unknown"), lat, lng));
             Context context = getApplicationContext();
             CharSequence text = "Report Submitted !!";
+            //permenence stuff
+            String filename = "reports.dat";
+            FileOutputStream outputStream;
+            try {
+                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+                objectOutputStream.writeObject(Singleton.pseudoDB);
+                objectOutputStream.close();
+                outputStream.close();
+            } catch (Exception e) {
+                System.err.println(e.toString());
+                System.err.println("Unable to save user data.");
+            }
+            filename = "idNum.dat";
+            try {
+                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+                objectOutputStream.writeObject(Singleton.id_num);
+                objectOutputStream.close();
+                outputStream.close();
+            } catch (Exception e) {
+                System.err.println(e.toString());
+                System.err.println("Unable to save user data.");
+            }
+            //end permenence stuff
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(context, text, duration);
             finish();

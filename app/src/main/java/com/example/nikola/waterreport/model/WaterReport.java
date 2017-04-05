@@ -1,9 +1,11 @@
 package com.example.nikola.waterreport.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Prithviraj Ammanabrolu.
  */
-public class WaterReport {
+public class WaterReport implements Serializable {
     private String userName;
     private String time;
     private int id;

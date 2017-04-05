@@ -12,9 +12,15 @@
     tools:context="com.example.nikola.waterreport.controllers.LoginActivity"
     android:weightSum="1">
 
+    <Button
+        android:text="View Historical Reports"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ViewHistory" />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="438dp">
 
         <TextView
             android:id="@+id/all_reports"

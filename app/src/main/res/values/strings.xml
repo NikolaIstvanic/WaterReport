@@ -46,10 +46,15 @@
         <item>Potable</item>
         <item>Unknown</item>
     </string-array>
+    <string-array name="PPM_Choices_spinner_values">
+        <item>Virus</item>
+        <item>Contaminant</item>
+    </string-array>
     <string name="title_activity_welcome">Welcome</string>
     <string name="title_activity_login">Log In</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_report">Report</string>
     <string name="title_activity_view_all">ViewAllActivity</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_historical_view">HistoricalViewActivity</string>
 </resources>

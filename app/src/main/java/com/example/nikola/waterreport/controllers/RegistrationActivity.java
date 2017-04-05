@@ -3,6 +3,7 @@ package com.example.nikola.waterreport.controllers;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
@@ -26,6 +27,9 @@ import com.example.nikola.waterreport.model.Singleton;
 import com.example.nikola.waterreport.model.User;
 import com.example.nikola.waterreport.model.Worker;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.regex.Pattern;
 
 /**
@@ -210,6 +214,29 @@ public class RegistrationActivity extends AppCompatActivity {
             mAuthTask = null;
             showProgress(false);
             if (success) {
+                String filename = "users.dat";
+                FileOutputStream outputStream;
+
+                try {
+                    outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+                    objectOutputStream.writeObject(Singleton.mappings);
+                    objectOutputStream.close();
+                    outputStream.close();
+                } catch (Exception e) {
+                    System.err.println(e.toString());
+                    System.err.println("Unable to save user data.");
+                }
+                /*try {
+                    FileOutputStream out = new FileOutputStream("app/src/main/res/data/users.dat");
+                    ObjectOutputStream objectOut = new ObjectOutputStream(out);
+                    objectOut.writeObject(Singleton.mappings);
+                    objectOut.close();
+                    out.close();
+                } catch (Exception e) {
+                    System.err.println(e.toString());
+                    System.err.println("Unable to save user data.");
+                }*/
                 // need to pass in the username to the next activity
                 Intent i = new Intent(getBaseContext(), LoginActivity.class);
                 startActivity(i);

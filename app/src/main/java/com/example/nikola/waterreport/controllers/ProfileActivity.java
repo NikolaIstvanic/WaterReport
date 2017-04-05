@@ -17,6 +17,8 @@ import com.example.nikola.waterreport.R;
 import com.example.nikola.waterreport.model.Singleton;
 import com.example.nikola.waterreport.model.User;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -66,6 +68,19 @@ public class ProfileActivity extends AppCompatActivity {
         }
         if (mCurrentUser.getHomeAddress() != null) {
             mHomeAddress.setText(mCurrentUser.getHomeAddress());
+        }
+        String filename = "users.dat";
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(Singleton.mappings);
+            objectOutputStream.close();
+            outputStream.close();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+            System.err.println("Unable to save user data.");
         }
     }
 

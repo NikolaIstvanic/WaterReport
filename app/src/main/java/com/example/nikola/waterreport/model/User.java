@@ -1,9 +1,11 @@
 package com.example.nikola.waterreport.model;
 
+import java.io.Serializable;
+
 /**
  * @author Nikola Istvnaic
  */
-public class User {
+public class User implements Serializable {
     private String mUserName;
     private String mPassword;
     private String mId;
