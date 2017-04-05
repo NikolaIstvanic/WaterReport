@@ -9,7 +9,6 @@ public class User {
     private String mId;
     private String mHomeAddress;
     private String mTitle;
-    public User() {}
 
     public User(String username, String password) {
         mUserName = username;
@@ -48,4 +47,7 @@ public class User {
         return mId;
     }
 
+    public String getmUserName() {
+        return mUserName;
+    }
 }

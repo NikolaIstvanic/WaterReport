@@ -47,7 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
         // setting up the elements in the Title spinner
         Resources res = getResources();
         List<String> legalTitles = Arrays.asList(res.getStringArray(R.array.title_spinner_names));
-        ArrayAdapter<String> adap = new ArrayAdapter(this,android.R.layout.simple_spinner_item, legalTitles);
+        ArrayAdapter<String> adap = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, legalTitles);
         adap.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mTitle.setAdapter(adap);
         // get the current user

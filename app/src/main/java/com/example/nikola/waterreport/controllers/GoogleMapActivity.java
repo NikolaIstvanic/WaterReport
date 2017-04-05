@@ -17,12 +17,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.List;
 import java.util.Set;
 
 public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCallback {
-    private GoogleMap mMap;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +42,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        GoogleMap mMap = googleMap;
         Set<WaterReport> reportList = Singleton.pseudoDB;
         for (WaterReport wr : reportList) {
             LatLng loc = new LatLng(wr.getLat(), wr.getLng());

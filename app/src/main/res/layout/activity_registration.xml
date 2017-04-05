@@ -82,7 +82,7 @@
         android:layout_weight="0.06" />
 
     <TextView
-        android:text="Type of User:"
+        android:text="@string/Type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/user_type" />
@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <RadioButton
-            android:text="User"
+            android:text="@string/User"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/radio_user"
@@ -105,21 +105,21 @@
             android:focusable="false" />
 
         <RadioButton
-            android:text="Worker"
+            android:text="@string/Worker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/radio_worker"
             android:focusable="false" />
 
         <RadioButton
-            android:text="Manager"
+            android:text="@string/Manager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/radio_manager"
             android:focusable="false" />
 
         <RadioButton
-            android:text="Admin"
+            android:text="@string/Admin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/radio_admin"
@@ -127,7 +127,7 @@
         </RadioGroup>
 
     <Button
-        android:text="Register"
+        android:text="@string/Register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reg_button" />

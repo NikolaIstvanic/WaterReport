@@ -15,7 +15,7 @@ public class ViewAllActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_all);
         TextView tv = (TextView) findViewById(R.id.all_reports);
         if (Singleton.pseudoDB.size() <= 0) {
-            tv.setText("No Water Reports Created...");
+            tv.setText(getString(R.string.none));
         } else {
             for (WaterReport wr : Singleton.pseudoDB) {
                 tv.append(wr.toString() + "\n\n");

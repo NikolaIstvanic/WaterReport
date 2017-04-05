@@ -8,6 +8,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ReportActivity extends AppCompatActivity {
     private Spinner source;
@@ -40,10 +42,10 @@ public class ReportActivity extends AppCompatActivity {
         mLocation = (EditText) findViewById(R.id.location);
         source = (Spinner) findViewById(R.id.spinner);
         condition = (Spinner) findViewById(R.id.condition_spinner);
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-        ((TextView) findViewById(R.id.text_time)).setText("Date: " + sdf.format(new Date()));
-        ((TextView) findViewById(R.id.user_name)).setText("Username: " + getIntent().getExtras().getString(Intent.EXTRA_USER));
-        ((TextView) findViewById(R.id.report_number)).setText("Report ID: " + (Singleton.id_num + 1));
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.US);
+        ((TextView) findViewById(R.id.text_time)).setText(getString(R.string.date, sdf.format(new Date())));
+        ((TextView) findViewById(R.id.user_name)).setText(getString(R.string.getUser, getIntent().getExtras().getString(Intent.EXTRA_USER)));
+        ((TextView) findViewById(R.id.report_number)).setText(getString(R.string.ReportID, Singleton.id_num + 1));
         final Button submitReport = (Button) findViewById(R.id.submit_report);
         submitReport.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +53,7 @@ public class ReportActivity extends AppCompatActivity {
                 try {
                     submitReport();
                 } catch (IOException e) {
-
+                    Log.d("ERROR", e.getMessage());
                 }
             }
         });

@@ -19,30 +19,26 @@
         android:layout_height="wrap_content"
         android:id="@+id/title"
         tools:text="Water Reporter"
-        tools:textSize="50dp"
+        tools:textSize="50sp"
         android:layout_gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="290dp"
+        android:layout_height="0dp"
         app:srcCompat="@drawable/bee"
         android:id="@+id/imageView2"
+        android:contentDescription="@string/main_description"
         android:layout_weight="0.86" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bee" />
-
     <Button
-        android:text="Login"
+        android:text="@string/Login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button_login" />
 
     <Button
-        android:text="Register"
+        android:text="@string/Register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button_register" />
