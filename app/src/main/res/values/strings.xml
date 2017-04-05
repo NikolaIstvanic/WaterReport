@@ -71,4 +71,8 @@
     <string name="getUser">Username: %s</string>
     <string name="ReportID">Report ID: %d</string>
     <string name="none">No Water Reports Created</string>
+    <string name="Location">Location:</string>
+    <string name="Virus">Virus/Contaminant:</string>
+    <string name="Year">Year:</string>
+    <string name="Submit">Submit</string>
 </resources>

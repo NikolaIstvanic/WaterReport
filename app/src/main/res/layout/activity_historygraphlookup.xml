@@ -8,42 +8,44 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.nikola.waterreport.controllers.ProfileActivity">
+    tools:context="com.example.nikola.waterreport.controllers.HistoryGraphActivity">
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:layout_marginTop="34dp"
-        android:id="@+id/reg_Email"
+        android:layout_marginTop="14dp"
+        android:id="@+id/reg_loc"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
     <TextView
-        android:text="@string/Email"
+        android:text="@string/Location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/reg_Home"
+        android:layout_marginStart="16dp"
+        android:id="@+id/textView2"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="13dp"
-        android:id="@+id/textView2" />
+        android:layout_alignTop="@+id/reg_loc" />
 
     <TextView
-        android:text="@string/Address"
+        android:text="@string/Virus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/reg_Home"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/reg_loc"
         android:layout_alignStart="@+id/textView2"
-        android:id="@+id/textView3" />
+        android:layout_marginTop="35dp" />
 
     <TextView
-        android:text="@string/Title"
+        android:text="@string/Year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:id="@+id/textView4"
+        android:layout_below="@+id/reg_Home"
         android:layout_alignStart="@+id/textView3"
-        android:id="@+id/textView4" />
+        android:layout_marginTop="33dp" />
 
     <EditText
         android:labelFor="@id/reg_Home"
@@ -51,26 +53,34 @@
         android:layout_height="wrap_content"
         android:inputType="textPostalAddress"
         android:ems="10"
-        android:layout_marginTop="54dp"
         android:id="@+id/reg_Home"
-        android:layout_below="@+id/reg_Email"
-        android:layout_alignStart="@+id/reg_Email"
-        android:layout_marginStart="22dp" />
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignParentEnd="true" />
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/reg_Title"
-        android:layout_below="@+id/textView4"
-        android:layout_alignStart="@+id/reg_Home" />
-
-    <Button
-        android:text="@string/SubmitProfile"
+    <EditText
+        android:labelFor="@id/reg_Home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/reg_Profile_Submit"
-        android:layout_below="@+id/reg_Title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="87dp" />
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:id="@+id/year_home"
+        android:layout_alignBaseline="@+id/textView4"
+        android:layout_alignBottom="@+id/textView4"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="@string/Submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/reg_graph_Submit"
+        android:layout_below="@+id/year_home"
+        android:layout_alignStart="@+id/year_home" />
+
+    <com.jjoe64.graphview.GraphView
+        android:layout_width="match_parent"
+        android:layout_height="250dip"
+        android:layout_below="@+id/reg_graph_Submit"
+        android:id="@+id/graph" />
 
 </RelativeLayout>

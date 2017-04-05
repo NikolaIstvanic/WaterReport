@@ -10,6 +10,8 @@ public class User {
     private String mHomeAddress;
     private String mTitle;
 
+    public User() {}
+
     public User(String username, String password) {
         mUserName = username;
         mPassword = password;
