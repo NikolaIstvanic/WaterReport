@@ -8,8 +8,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.nikola.waterreport.R;
+import com.example.nikola.waterreport.model.Manager;
 import com.example.nikola.waterreport.model.Singleton;
+import com.example.nikola.waterreport.model.User;
 import com.example.nikola.waterreport.model.WaterReport;
+import com.example.nikola.waterreport.model.Worker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -65,7 +68,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, ViewAllActivity.class);
-                startActivityForResult(i, 0);
+                User currentUser = Singleton.mappings.get(getIntent().getExtras().getString(Intent.EXTRA_USER));
+                if( currentUser instanceof Manager) {
+                    startActivityForResult(i, 0);
+                }
             }
         });
     }

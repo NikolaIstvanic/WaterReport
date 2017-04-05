@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nikola.waterreport.R;
+import com.example.nikola.waterreport.model.Manager;
 import com.example.nikola.waterreport.model.Singleton;
 import com.example.nikola.waterreport.model.User;
 import com.example.nikola.waterreport.model.WaterReport;
@@ -100,7 +101,7 @@ public class ReportActivity extends AppCompatActivity {
                     String.valueOf(((TextView) findViewById(R.id.text_time)).getText()),
                     ++Singleton.id_num, String.valueOf(mLocation.getText()),
                     (String) source.getSelectedItem(),
-                    (currentUser instanceof Worker ? (String) condition.getSelectedItem() : "Unknown"), lat, lng));
+                    (currentUser instanceof Worker || currentUser instanceof Manager ? (String) condition.getSelectedItem() : "Unknown"), lat, lng));
             Context context = getApplicationContext();
             CharSequence text = "Report Submitted !!";
             int duration = Toast.LENGTH_SHORT;
