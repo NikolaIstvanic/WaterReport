@@ -3,6 +3,7 @@ package com.example.nikola.waterreport.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -112,20 +113,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void displayToMap() {
         Set<WaterReport> reportList = Singleton.waterreports;
         for (WaterReport wr : reportList) {
-            LatLng loc = new LatLng(wr.getLat(), wr.getLng());
-            mMap.addMarker(new MarkerOptions().position(loc).title(wr.getUserName()).snippet(
-                    "Condition: " + wr.getCondition() + "\n " + "Location: " + wr.getLocation()
-                            + "\nSource: " + wr.getSource()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+            if (wr != null) {
+                LatLng loc = new LatLng(wr.getmLat(), wr.getmLng());
+                mMap.addMarker(new MarkerOptions().position(loc).title(wr.getmUserName()).snippet(
+                        "Condition: " + wr.getmCondition() + "\n " + "Location: " + wr.getmLocation()
+                                + "\nSource: " + wr.getmSource()));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+            }
         }
         Set<QualityReport> qualitylist = Singleton.qualityreports;
         for (QualityReport qr : qualitylist) {
-            LatLng loc = new LatLng(qr.getLat(), qr.getLng());
-            mMap.addMarker(new MarkerOptions().position(loc).title(qr.getUserName()).snippet(
-                    "Condition: " + qr.getCondition() + "\n " + "Location: " + qr.getLocation()
-                            + "\nVirus PPM: " + qr.getVirusPPM()
-                            + "\nContaminant PPM: " + qr.getContaminantPPM()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+            if (qr != null) {
+                LatLng loc = new LatLng(qr.getmLat(), qr.getmLng());
+                mMap.addMarker(new MarkerOptions().position(loc).title(qr.getmUserName()).snippet(
+                        "Condition: " + qr.getmCondition() + "\n " + "Location: " + qr.getmLocation()
+                                + "\nVirus PPM: " + qr.getmVirusPPM()
+                                + "\nContaminant PPM: " + qr.getmContaminantPPM()));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+            }
         }
         mMap.setInfoWindowAdapter(new MainActivity.CustomInfoWindowAdapter());
     }

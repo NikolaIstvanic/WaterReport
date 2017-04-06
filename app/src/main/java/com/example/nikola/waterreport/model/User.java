@@ -1,7 +1,5 @@
 package com.example.nikola.waterreport.model;
 
-import android.util.Log;
-
 /**
  * @author Nikola Istvnaic
  */
@@ -12,6 +10,7 @@ public class User {
     private int mId = 0;
     private String mHomeAddress;
     private String mTitle;
+
 
     public User() {}
 
@@ -25,18 +24,12 @@ public class User {
         mId = id;
     }
 
-    public String getPassword()
-    {
-        return mPassword;
-    }
-
     public User(String username, String password, String email) {
         this(username, password);
         mEmail = email;
     }
 
     public boolean authenticate(String password) {
-        Log.d("TEST", password + " " + mPassword);
         return password != null && password.equals(mPassword);
     }
 
@@ -48,29 +41,37 @@ public class User {
         return mId;
     }
 
-    public void setEmail(String email) {
+    public void setmEmail(String email) {
         if (email != null) {
             mEmail = email;
         }
     }
 
-    public void setHomeAddress(String address) {
+    public void setmHomeAddress(String address) {
         if (address != null) {
             mHomeAddress = address;
         }
     }
 
-    public void setTitle(String title) {
+    public void setmTitle(String title) {
         if (title != null) {
             mTitle = title;
         }
     }
 
-    public String getTitle() {
+    public String getmTitle() {
         return mTitle;
     }
 
-    public String getHomeAddress() {
+    public void setmPassword(String password) {
+        mPassword = password;
+    }
+
+    public String getmPassword() {
+        return mPassword;
+    }
+
+    public String getmHomeAddress() {
         return mHomeAddress;
     }
 

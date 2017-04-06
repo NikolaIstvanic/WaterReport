@@ -86,4 +86,5 @@
     <string name="virus_label">Virus PPM:</string>
     <string name="error_virus">Invalid entry for virus PPM</string>
     <string name="error_contaminant">Invalid entry for contaminant PPM</string>
+    <string name="Cancel">Cancel</string>
 </resources>

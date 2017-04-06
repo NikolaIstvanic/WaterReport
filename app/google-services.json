@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "803372114155",
+    "firebase_url": "https://waterreport-73fcb.firebaseio.com",
+    "project_id": "waterreport-73fcb",
+    "storage_bucket": "waterreport-73fcb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803372114155:android:b0f0ee10ad05c373",
+        "android_client_info": {
+          "package_name": "com.example.nikola.waterreport"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803372114155-82ogn5u0e728cdrdeuagm61c15lrqocl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nikola.waterreport",
+            "certificate_hash": "9b00bb3d3534fc5b47a0c6c39be6560c90bca74b"
+          }
+        },
+        {
+          "client_id": "803372114155-u021335p81e7c20t5jfs2durug2vh2gg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7pzOdewmYggoIS7mSZrTpcs3W3rx3NNk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803372114155-u021335p81e7c20t5jfs2durug2vh2gg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -117,7 +117,7 @@ public class SubmitQualityReportActivity extends AppCompatActivity {
             Singleton.qualityreports.add(new QualityReport(
                     String.valueOf(((TextView) findViewById(R.id.user_name)).getText()),
                     String.valueOf(((TextView) findViewById(R.id.text_time)).getText()),
-                    ++Singleton.id_num, String.valueOf(mLocation.getText()),
+                    Singleton.qualityreports.size(), String.valueOf(mLocation.getText()),
                     condition.getSelectedItem().toString(), v, c, lat, lng));
             Context context = getApplicationContext();
             CharSequence text = "Report Submitted !!";

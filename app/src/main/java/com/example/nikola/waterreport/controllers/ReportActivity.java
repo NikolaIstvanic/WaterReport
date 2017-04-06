@@ -85,23 +85,26 @@ public class ReportActivity extends AppCompatActivity {
             mLocation.setError(getString(R.string.error_empty_location));
             cancel = true;
         }
-        Geocoder gc = new Geocoder(this);
-        List<Address> list = gc.getFromLocationName(location, 1);
-        Address add = list.get(0);
-        double lat = add.getLatitude();
-        double lng = add.getLongitude();
         if (cancel) {
             // There was an error; don't attempt submit and focus the location field
             mLocation.requestFocus();
         } else {
+            Geocoder gc = new Geocoder(this);
+            List<Address> list = gc.getFromLocationName(location, 1);
+            Address add = list.get(0);
+            double lat = add.getLatitude();
+            double lng = add.getLongitude();
             // log water report
             User currentUser = Singleton.mappings.get(getIntent().getExtras().getString(Intent.EXTRA_USER));
-            Singleton.waterreports.add(new WaterReport(
-                    String.valueOf(((TextView) findViewById(R.id.user_name)).getText()),
+            WaterReport w = new WaterReport(
+                    currentUser.getmUserName(),
                     String.valueOf(((TextView) findViewById(R.id.text_time)).getText()),
-                    ++Singleton.id_num, String.valueOf(mLocation.getText()),
-                    (String) source.getSelectedItem(),
-                    (currentUser instanceof Worker || currentUser instanceof Manager ? (String) condition.getSelectedItem() : "Unknown"), lat, lng));
+                    Singleton.waterreports.size(), String.valueOf(mLocation.getText()),
+                    source.getSelectedItem().toString(), condition.getSelectedItem().toString(),
+                    lat, lng);
+            Singleton.waterreports.add(w);
+            Log.d("TEST", w.toString());
+            Singleton.addWaterReport(w);
             Context context = getApplicationContext();
             CharSequence text = "Report Submitted !!";
             int duration = Toast.LENGTH_SHORT;

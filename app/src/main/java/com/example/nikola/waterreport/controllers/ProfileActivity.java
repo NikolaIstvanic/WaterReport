@@ -57,15 +57,15 @@ public class ProfileActivity extends AppCompatActivity {
         if (mCurrentUser.getmEmail() != null) {
             mEmailAddress.setText(mCurrentUser.getmEmail());
         }
-        if (mCurrentUser.getTitle() != null) {
+        if (mCurrentUser.getmTitle() != null) {
             int i  = 0;
             for (String s: legalTitles)
-                if (s.equals(mCurrentUser.getTitle())) break;
+                if (s.equals(mCurrentUser.getmTitle())) break;
                 else i++;
             mTitle.setSelection(i);
         }
-        if (mCurrentUser.getHomeAddress() != null) {
-            mHomeAddress.setText(mCurrentUser.getHomeAddress());
+        if (mCurrentUser.getmHomeAddress() != null) {
+            mHomeAddress.setText(mCurrentUser.getmHomeAddress());
         }
     }
 
@@ -82,9 +82,9 @@ public class ProfileActivity extends AppCompatActivity {
             return;
         }
         // errror checks made. need to change the model
-        mCurrentUser.setEmail(mEmailAddress.getText().toString());
-        mCurrentUser.setHomeAddress(mHomeAddress.getText().toString());
-        mCurrentUser.setTitle((String) mTitle.getSelectedItem());
+        mCurrentUser.setmEmail(mEmailAddress.getText().toString());
+        mCurrentUser.setmHomeAddress(mHomeAddress.getText().toString());
+        mCurrentUser.setmTitle((String) mTitle.getSelectedItem());
         Context context = getApplicationContext();
         CharSequence text = "Changes Submitted !!";
         int duration = Toast.LENGTH_SHORT;

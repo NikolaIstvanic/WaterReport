@@ -9,6 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +38,7 @@ public class Singleton {
      */
     public static Set<QualityReport> qualityreports = new HashSet<>();
     /**
-     * variable for storing how many water reports have been entered
+     * variable for storing how many users have been have been entered
      */
     public static int id_num = 0;
 
@@ -71,15 +72,15 @@ public class Singleton {
      * @param w WaterReport being added
      */
     public static void addWaterReport(WaterReport w) {
-        fdb.getReference("WaterReports").child(Integer.toString(waterreports.size())).setValue(w);
+        fdb.getReference("WaterReports").child(Integer.toString(w.getmId())).setValue(w);
     }
 
     /**
      * Add Quality/PurityReport to Firebase database
-     * @param qr the quality report to add
+     * @param q the quality report to add
      */
-    public static void addQualityReport(QualityReport qr) {
-        fdb.getReference("QualityReports").child(Integer.toString(qualityreports.size())).setValue(qr);
+    public static void addQualityReport(QualityReport q) {
+        fdb.getReference("QualityReports").child(Integer.toString(qualityreports.size())).setValue(q);
     }
 
     /**
@@ -87,18 +88,16 @@ public class Singleton {
      * @param u User to add
      */
     public static void addUser(User u) {
-        u.setmId(mappings.size() + 1);
-        Log.d("TEST", u.getPassword());
+        u.setmId(mappings.size());
+        u.setmHomeAddress("");
+        u.setmTitle("Mr.");
         fdb.getReference("Users").child(String.valueOf(u.getmId())).setValue(u);
     }
 
-    /**
-     * Refreshes instance variables storing app information from database.
-     */
     public static void setupDatabaseReferences() {
         DatabaseReference users = fdb.getReference().child("Users");
         DatabaseReference waterReports = fdb.getReference().child("WaterReports");
-        DatabaseReference waterPurityReports = fdb.getReference().child("QualityReport");
+        DatabaseReference waterPurityReports = fdb.getReference().child("QualityReports");
         users.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -106,15 +105,16 @@ public class Singleton {
                 // whenever data at this location is updated.
                 GenericTypeIndicator<List<User>> l = new GenericTypeIndicator<List<User>>() {};
                 List<User> userList = dataSnapshot.getValue(l);
+                userList.removeAll(Collections.singleton(null));
                 if (mappings.keySet().size() == 0) {
                     for (User u : userList) {
-                        mappings.put(u.getmUserName(), u);
+                        addToMappings(u.getmUserName(), u);
                     }
                 } else {
-                    User u = userList.get(userList.size() - 1);
+                    User u = userList.get(userList.size());
                     mappings.put(u.getmUserName(), u);
                 }
-                Log.d("Success", "Value is: " + userList);
+                Log.d("Users Success", "Value is: " + userList);
             }
 
             @Override
@@ -129,21 +129,21 @@ public class Singleton {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+                waterreports.removeAll(Collections.singleton(null));
                 GenericTypeIndicator<List<WaterReport>> l =
                         new GenericTypeIndicator<List<WaterReport>>() {};
                 List<WaterReport> reportListDB = dataSnapshot.getValue(l);
+                reportListDB.removeAll(Collections.singleton(null));
                 if (waterreports.size() == 0) {
                     for (WaterReport r : reportListDB) {
                         waterreports.add(r);
                     }
                 } else {
                     for (WaterReport r : reportListDB) {
-                        if (!waterreports.contains(r)) {
-                            waterreports.add(r);
-                        }
+                        waterreports.add(r);
                     }
                 }
-                Log.d("Success", "Value is: " + reportListDB);
+                Log.d("WaterReports Success", "Value is: " + reportListDB);
             }
 
             @Override
@@ -172,7 +172,7 @@ public class Singleton {
                         }
                     }
                 }
-                Log.d("Success", "Value is: " + purityReportListDB);
+                Log.d("Quality Success", "Value is: " + purityReportListDB);
             }
 
             @Override
