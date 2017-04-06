@@ -46,6 +46,11 @@
         <item>Potable</item>
         <item>Unknown</item>
     </string-array>
+    <string-array name="quality_condition">
+        <item>Safe</item>
+        <item>Treatable</item>
+        <item>Unsafe</item>
+    </string-array>
     <string name="title_activity_welcome">Welcome</string>
     <string name="title_activity_login">Log In</string>
     <string name="title_activity_profile">Profile</string>
@@ -75,4 +80,10 @@
     <string name="Virus">Virus/Contaminant:</string>
     <string name="Year">Year:</string>
     <string name="Submit">Submit</string>
+    <string name="title_activity_worker_select_report">WorkerSelectReportActivity</string>
+    <string name="quality">Submit Quality Report</string>
+    <string name="contaminant_label">Contaminant PPM:</string>
+    <string name="virus_label">Virus PPM:</string>
+    <string name="error_virus">Invalid entry for virus PPM</string>
+    <string name="error_contaminant">Invalid entry for contaminant PPM</string>
 </resources>

@@ -185,13 +185,13 @@ public class RegistrationActivity extends AppCompatActivity {
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
         private final String mUser;
-        private final String mID;
+        private final String mEmail;
         private final String mPass;
         private final String mType;
 
-        UserLoginTask(String user, String pass, String id, String type) {
+        UserLoginTask(String user, String pass, String email, String type) {
             mUser = user;
-            mID = id;
+            mEmail = email;
             mPass = pass;
             mType = type;
         }
@@ -201,10 +201,12 @@ public class RegistrationActivity extends AppCompatActivity {
             if (mType == null) {
                 return false;
             }
-            /* add user to "database" (if you're at this point, then everything is valid to be added */
-            Singleton.addToMappings(mUser, mType.equals("User") ? new User(mUser, mPass, mID)
-                : mType.equals("Worker") ? new Worker(mUser, mPass, mID) : mType.equals("Manager")
-                ? new Manager(mUser, mPass, mID) : new Admin(mUser, mPass, mID));
+            /* add user to database */
+            User userToAdd = mType.equals("User") ? new User(mUser, mPass, mEmail)
+                    : mType.equals("Worker") ? new Worker(mUser, mPass, mEmail) : mType.equals("Manager")
+                    ? new Manager(mUser, mPass, mEmail) : new Admin(mUser, mPass, mEmail);
+            Singleton.addToMappings(mUser, userToAdd);
+            Singleton.addUser(userToAdd);
             return true;
         }
 

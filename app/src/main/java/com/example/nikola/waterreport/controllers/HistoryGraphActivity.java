@@ -1,35 +1,25 @@
 package com.example.nikola.waterreport.controllers;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 
 import com.example.nikola.waterreport.R;
-import com.example.nikola.waterreport.model.Singleton;
 import com.example.nikola.waterreport.model.User;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- * Created by prithviraj on 4/5/17.
+ * Created by Prithviraj Ammanabrolu on 4/5/17
  */
 
 public class HistoryGraphActivity extends AppCompatActivity {
+    /*
     // UI references.
     private EditText mLocation;
     private EditText mVirus;
@@ -82,11 +72,12 @@ public class HistoryGraphActivity extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
         finish();
-        toast.show();*/
+        toast.show();
     }
 
     private boolean isIDValid(String id) {
         return Pattern.matches("[A-Za-z0-9\\._%+-]+@[A-Za-z0-9]+\\.[A-Za-z]{2,4}", id);
     }
+    */
 }
 

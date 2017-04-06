@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.nikola.waterreport.R;
 import com.example.nikola.waterreport.model.Manager;
+import com.example.nikola.waterreport.model.QualityReport;
 import com.example.nikola.waterreport.model.Singleton;
 import com.example.nikola.waterreport.model.User;
 import com.example.nikola.waterreport.model.WaterReport;
@@ -58,9 +59,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, ReportActivity.class);
-                i.putExtra(Intent.EXTRA_USER, getIntent().getExtras().getString(Intent.EXTRA_USER));
-                startActivityForResult(i, 0);
+                String user_name = getIntent().getExtras().getString(Intent.EXTRA_USER);
+                // search for type of user
+                if (Singleton.mappings.get(user_name) instanceof Worker) {
+                    Intent i = new Intent(MainActivity.this, WorkerSelectReportActivity.class);
+                    i.putExtra(Intent.EXTRA_USER, getIntent().getExtras().getString(Intent.EXTRA_USER));
+                    startActivityForResult(i, 0);
+                } else {
+                    Intent i = new Intent(MainActivity.this, ReportActivity.class);
+                    i.putExtra(Intent.EXTRA_USER, getIntent().getExtras().getString(Intent.EXTRA_USER));
+                    startActivityForResult(i, 0);
+                }
             }
         });
         Button view = (Button) findViewById(R.id.viewAll);
@@ -101,12 +110,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      * Called after the end of each Activity which is not Main (acts like a refresher).
      */
     public void displayToMap() {
-        Set<WaterReport> reportList = Singleton.pseudoDB;
+        Set<WaterReport> reportList = Singleton.waterreports;
         for (WaterReport wr : reportList) {
             LatLng loc = new LatLng(wr.getLat(), wr.getLng());
             mMap.addMarker(new MarkerOptions().position(loc).title(wr.getUserName()).snippet(
                     "Condition: " + wr.getCondition() + "\n " + "Location: " + wr.getLocation()
                             + "\nSource: " + wr.getSource()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+        }
+        Set<QualityReport> qualitylist = Singleton.qualityreports;
+        for (QualityReport qr : qualitylist) {
+            LatLng loc = new LatLng(qr.getLat(), qr.getLng());
+            mMap.addMarker(new MarkerOptions().position(loc).title(qr.getUserName()).snippet(
+                    "Condition: " + qr.getCondition() + "\n " + "Location: " + qr.getLocation()
+                            + "\nVirus PPM: " + qr.getVirusPPM()
+                            + "\nContaminant PPM: " + qr.getContaminantPPM()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
         mMap.setInfoWindowAdapter(new MainActivity.CustomInfoWindowAdapter());

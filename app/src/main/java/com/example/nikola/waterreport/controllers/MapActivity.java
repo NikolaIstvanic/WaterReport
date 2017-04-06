@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.nikola.waterreport.R;
+import com.example.nikola.waterreport.model.QualityReport;
 import com.example.nikola.waterreport.model.Singleton;
 import com.example.nikola.waterreport.model.WaterReport;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -61,10 +62,18 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(markerOptions.getPosition()));
             }
         });
-        Set<WaterReport> reportList = Singleton.pseudoDB;
+        Set<WaterReport> reportList = Singleton.waterreports;
         for (WaterReport wr : reportList) {
             LatLng loc = new LatLng(wr.getLat(), wr.getLng());
-            mMap.addMarker(new MarkerOptions().position(loc).title(wr.getUserName()).snippet(wr.getCondition() + " " + wr.getLocation() + " " + wr.getSource()));
+            mMap.addMarker(new MarkerOptions().position(loc).title(wr.getUserName())
+                    .snippet(wr.getCondition() + " " + wr.getLocation() + " " + wr.getSource()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+        }
+        Set<QualityReport> qualitylist = Singleton.qualityreports;
+        for (QualityReport qr : qualitylist) {
+            LatLng loc = new LatLng(qr.getLat(), qr.getLng());
+            mMap.addMarker(new MarkerOptions().position(loc).title(qr.getUserName())
+                    .snippet(qr.getCondition() + " " + qr.getLocation()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter());

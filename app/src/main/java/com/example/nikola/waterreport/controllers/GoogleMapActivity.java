@@ -4,6 +4,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
 import com.example.nikola.waterreport.R;
+import com.example.nikola.waterreport.model.QualityReport;
 import com.example.nikola.waterreport.model.Singleton;
 import com.example.nikola.waterreport.model.WaterReport;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -38,17 +39,25 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      *
-     * @param googleMap the given GoogleMap object
+     * @param mMap the given GoogleMap object
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        GoogleMap mMap = googleMap;
-        Set<WaterReport> reportList = Singleton.pseudoDB;
+    public void onMapReady(GoogleMap mMap) {
+        Set<WaterReport> reportList = Singleton.waterreports;
         for (WaterReport wr : reportList) {
             LatLng loc = new LatLng(wr.getLat(), wr.getLng());
             mMap.addMarker(new MarkerOptions().position(loc).title(wr.getUserName()).snippet(
                     "Condition: " + wr.getCondition() + "\n " + "Location: " + wr.getLocation()
                             + "\nSource: " + wr.getSource()));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
+        }
+        Set<QualityReport> qualitylist = Singleton.qualityreports;
+        for (QualityReport qr : qualitylist) {
+            LatLng loc = new LatLng(qr.getLat(), qr.getLng());
+            mMap.addMarker(new MarkerOptions().position(loc).title(qr.getUserName()).snippet(
+                    "Condition: " + qr.getCondition() + "\n " + "Location: " + qr.getLocation()
+                            + "\nVirus PPM: " + qr.getVirusPPM()
+                            + "\nContaminant PPM: " + qr.getContaminantPPM()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
         mMap.setInfoWindowAdapter(new GoogleMapActivity.CustomInfoWindowAdapter());

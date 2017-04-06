@@ -7,12 +7,16 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.nikola.waterreport.R;
+import com.example.nikola.waterreport.model.Singleton;
+import com.google.firebase.FirebaseApp;
 
 public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        FirebaseApp.initializeApp(this);
+        Singleton.setupDatabaseReferences();
         Button log = (Button) findViewById(R.id.button_login);
         log.setOnClickListener(new View.OnClickListener() {
             @Override

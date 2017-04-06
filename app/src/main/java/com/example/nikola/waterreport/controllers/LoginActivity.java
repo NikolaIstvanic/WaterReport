@@ -26,10 +26,6 @@ import com.example.nikola.waterreport.model.Singleton;
  */
 public class LoginActivity extends AppCompatActivity {
     /**
-     * A dummy authentication store containing known user names and passwords.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{"user:g"};
-    /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
@@ -171,17 +167,9 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
             // check username to User hashmap
             if (Singleton.mappings.keySet().contains(mUser)) {
                 return Singleton.lookup(mUser, mPassword);
-            }
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mUser)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
             }
             return false;
         }

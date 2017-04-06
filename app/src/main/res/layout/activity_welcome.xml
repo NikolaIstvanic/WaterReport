@@ -20,8 +20,7 @@
         android:id="@+id/title"
         tools:text="Water Reporter"
         tools:textSize="50sp"
-        android:layout_gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:layout_gravity="center"/>
 
     <ImageView
         android:layout_width="match_parent"
