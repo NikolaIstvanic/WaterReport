@@ -94,91 +94,84 @@ public class Singleton {
         fdb.getReference("Users").child(String.valueOf(u.getmId())).setValue(u);
     }
 
-    public static void setupDatabaseReferences() {
+    public static void onDataChanged() {
         DatabaseReference users = fdb.getReference().child("Users");
-        DatabaseReference waterReports = fdb.getReference().child("WaterReports");
-        DatabaseReference waterPurityReports = fdb.getReference().child("QualityReports");
+        DatabaseReference water = fdb.getReference().child("WaterReports");
+        DatabaseReference quality = fdb.getReference().child("QualityReports");
         users.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
+                // This method is called once with the initial value and again whenever data at this location is updated.
                 GenericTypeIndicator<List<User>> l = new GenericTypeIndicator<List<User>>() {};
-                List<User> userList = dataSnapshot.getValue(l);
-                userList.removeAll(Collections.singleton(null));
+                List<User> users = dataSnapshot.getValue(l);
+                users.removeAll(Collections.singleton(null));
                 if (mappings.keySet().size() == 0) {
-                    for (User u : userList) {
+                    for (User u : users) {
                         addToMappings(u.getmUserName(), u);
                     }
                 } else {
-                    User u = userList.get(userList.size());
+                    User u = users.get(users.size());
                     mappings.put(u.getmUserName(), u);
                 }
-                Log.d("Users Success", "Value is: " + userList);
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("Failure", "Failed to read value.", error.toException());
+                Log.w("FAILURE", "Failed to read value.", error.toException());
             }
         });
 
-        waterReports.addValueEventListener(new ValueEventListener() {
+        water.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
+                // This method is called once with the initial value and again whenever data at this location is updated.
                 waterreports.removeAll(Collections.singleton(null));
                 GenericTypeIndicator<List<WaterReport>> l =
                         new GenericTypeIndicator<List<WaterReport>>() {};
-                List<WaterReport> reportListDB = dataSnapshot.getValue(l);
-                reportListDB.removeAll(Collections.singleton(null));
+                List<WaterReport> reports = dataSnapshot.getValue(l);
+                reports.removeAll(Collections.singleton(null));
                 if (waterreports.size() == 0) {
-                    for (WaterReport r : reportListDB) {
+                    for (WaterReport r : reports) {
                         waterreports.add(r);
                     }
                 } else {
-                    for (WaterReport r : reportListDB) {
+                    for (WaterReport r : reports) {
                         waterreports.add(r);
                     }
                 }
-                Log.d("WaterReports Success", "Value is: " + reportListDB);
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-                Log.w("Failure", "Failed to read value.", error.toException());
+                Log.w("FAILURE", "Failed to read value.", error.toException());
             }
         });
 
-        waterPurityReports.addValueEventListener(new ValueEventListener() {
+        quality.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
+                // This method is called once with the initial value and again whenever data at this location is updated.
                 GenericTypeIndicator<List<QualityReport>> l =
                         new GenericTypeIndicator<List<QualityReport>>() {};
-                List<QualityReport> purityReportListDB = dataSnapshot.getValue(l);
+                List<QualityReport> purities = dataSnapshot.getValue(l);
                 if (qualityreports.size() == 0) {
-                    for (QualityReport r : purityReportListDB) {
+                    for (QualityReport r : purities) {
                         qualityreports.add(r);
                     }
                 } else {
-                    for (QualityReport r : purityReportListDB) {
+                    for (QualityReport r : purities) {
                         if (!qualityreports.contains(r)) {
                             qualityreports.add(r);
                         }
                     }
                 }
-                Log.d("Quality Success", "Value is: " + purityReportListDB);
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
                 // Failed to read value
-                Log.w("Failure", "Failed to read value.", error.toException());
+                Log.w("FAILURE", "Failed to read value.", error.toException());
             }
         });
     }
