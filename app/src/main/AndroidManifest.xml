@@ -63,9 +63,13 @@
             android:label="Here" />
         <activity
             android:name=".controllers.WorkerSelectReportActivity"
-            android:label="@string/title_activity_worker_select_report"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".controllers.SubmitQualityReportActivity"></activity>
+            android:label="@string/title_activity_worker_select_report" />
+        <activity
+            android:name=".controllers.SubmitQualityReportActivity"
+            android:label="@string/QualityReport" />
+        <activity
+            android:name=".controllers.HistoryGraphActivity"
+            android:label="@string/Graph" />
     </application>
 
 </manifest>

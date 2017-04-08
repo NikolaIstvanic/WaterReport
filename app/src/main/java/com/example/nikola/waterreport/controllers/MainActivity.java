@@ -3,18 +3,15 @@ package com.example.nikola.waterreport.controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.nikola.waterreport.R;
-import com.example.nikola.waterreport.model.Manager;
 import com.example.nikola.waterreport.model.QualityReport;
 import com.example.nikola.waterreport.model.Singleton;
 import com.example.nikola.waterreport.model.User;
 import com.example.nikola.waterreport.model.WaterReport;
-import com.example.nikola.waterreport.model.Worker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -23,7 +20,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author Nikola Istvanic
@@ -62,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View view) {
                 String user_name = getIntent().getExtras().getString(Intent.EXTRA_USER);
                 // search for type of user
-                if (Singleton.mappings.get(user_name) instanceof Worker) {
+                if (Singleton.mappings.get(user_name).getmPosition().equals("Worker")) {
                     Intent i = new Intent(MainActivity.this, WorkerSelectReportActivity.class);
                     i.putExtra(Intent.EXTRA_USER, getIntent().getExtras().getString(Intent.EXTRA_USER));
                     startActivityForResult(i, 0);
@@ -77,9 +74,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, ViewAllActivity.class);
                 User currentUser = Singleton.mappings.get(getIntent().getExtras().getString(Intent.EXTRA_USER));
-                if( currentUser instanceof Manager) {
+                if (Singleton.mappings.get(currentUser.getmUserName()).getmPosition().equals("Manager")) {
+                    Intent i = new Intent(MainActivity.this, HistoryGraphActivity.class);
+                    startActivityForResult(i, 0);
+                } else {
+                    Intent i = new Intent(MainActivity.this, ViewAllActivity.class);
                     startActivityForResult(i, 0);
                 }
             }
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      * Called after the end of each Activity which is not Main (acts like a refresher).
      */
     public void displayToMap() {
-        Set<WaterReport> reportList = Singleton.waterreports;
+        List<WaterReport> reportList = Singleton.waterreports;
         for (WaterReport wr : reportList) {
             if (wr != null) {
                 LatLng loc = new LatLng(wr.getmLat(), wr.getmLng());
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
             }
         }
-        Set<QualityReport> qualitylist = Singleton.qualityreports;
+        List<QualityReport> qualitylist = Singleton.qualityreports;
         for (QualityReport qr : qualitylist) {
             if (qr != null) {
                 LatLng loc = new LatLng(qr.getmLat(), qr.getmLng());

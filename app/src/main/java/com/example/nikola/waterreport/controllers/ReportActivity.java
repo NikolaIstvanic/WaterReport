@@ -18,11 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nikola.waterreport.R;
-import com.example.nikola.waterreport.model.Manager;
 import com.example.nikola.waterreport.model.Singleton;
 import com.example.nikola.waterreport.model.User;
 import com.example.nikola.waterreport.model.WaterReport;
-import com.example.nikola.waterreport.model.Worker;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -46,7 +44,7 @@ public class ReportActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.US);
         ((TextView) findViewById(R.id.text_time)).setText(getString(R.string.date, sdf.format(new Date())));
         ((TextView) findViewById(R.id.user_name)).setText(getString(R.string.getUser, getIntent().getExtras().getString(Intent.EXTRA_USER)));
-        ((TextView) findViewById(R.id.report_number)).setText(getString(R.string.ReportID, Singleton.id_num + 1));
+        ((TextView) findViewById(R.id.report_number)).setText(getString(R.string.ReportID, Singleton.waterreports.size() + 1));
         final Button submitReport = (Button) findViewById(R.id.submit_report);
         submitReport.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,11 +97,10 @@ public class ReportActivity extends AppCompatActivity {
             WaterReport w = new WaterReport(
                     currentUser.getmUserName(),
                     String.valueOf(((TextView) findViewById(R.id.text_time)).getText()),
-                    Singleton.waterreports.size(), String.valueOf(mLocation.getText()),
+                    Singleton.waterreports.size() + 1, String.valueOf(mLocation.getText()),
                     source.getSelectedItem().toString(), condition.getSelectedItem().toString(),
                     lat, lng);
             Singleton.waterreports.add(w);
-            Log.d("TEST", w.toString());
             Singleton.addWaterReport(w);
             Context context = getApplicationContext();
             CharSequence text = "Report Submitted !!";

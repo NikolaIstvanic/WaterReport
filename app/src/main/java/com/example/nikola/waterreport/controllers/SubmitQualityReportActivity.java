@@ -18,12 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nikola.waterreport.R;
-import com.example.nikola.waterreport.model.Manager;
 import com.example.nikola.waterreport.model.QualityReport;
 import com.example.nikola.waterreport.model.Singleton;
-import com.example.nikola.waterreport.model.User;
-import com.example.nikola.waterreport.model.WaterReport;
-import com.example.nikola.waterreport.model.Worker;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -31,6 +27,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 public class SubmitQualityReportActivity extends AppCompatActivity {
     private Spinner condition;
@@ -41,7 +38,7 @@ public class SubmitQualityReportActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report);
+        setContentView(R.layout.activity_submit_quality_report);
         mLocation = (EditText) findViewById(R.id.location);
         mVirusPPM = (EditText) findViewById(R.id.virus_ppm);
         mContaminantPPM = (EditText) findViewById(R.id.contaminant_ppm);
@@ -49,7 +46,7 @@ public class SubmitQualityReportActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.US);
         ((TextView) findViewById(R.id.text_time)).setText(getString(R.string.date, sdf.format(new Date())));
         ((TextView) findViewById(R.id.user_name)).setText(getString(R.string.getUser, getIntent().getExtras().getString(Intent.EXTRA_USER)));
-        ((TextView) findViewById(R.id.report_number)).setText(getString(R.string.ReportID, Singleton.id_num + 1));
+        ((TextView) findViewById(R.id.report_number)).setText(getString(R.string.ReportID, Singleton.qualityreports.size() + 1));
         final Button submitReport = (Button) findViewById(R.id.submit_report);
         submitReport.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,24 +83,19 @@ public class SubmitQualityReportActivity extends AppCompatActivity {
             mLocation.setError(getString(R.string.error_empty_location));
             cancel = true;
         }
-        Geocoder gc = new Geocoder(this);
-        List<Address> list = gc.getFromLocationName(location, 1);
-        Address add = list.get(0);
-        double lat = add.getLatitude();
-        double lng = add.getLongitude();
         double v = 0;
         double c = 0;
-        try {
-            v = Double.parseDouble(mVirusPPM.getText().toString());
-        } catch (NumberFormatException nfe) {
-            mVirusPPM.setError(getString(R.string.error_virus));
+        if (!Pattern.matches("[-+]?[0-9]*\\.?[0-9]+?", mVirusPPM.getText().toString())) {
             virusCancel = true;
+            mVirusPPM.setError(getString(R.string.error_virus));
+        } else {
+            v = Double.parseDouble(mVirusPPM.getText().toString());
         }
-        try {
-            c = Double.parseDouble(mContaminantPPM.getText().toString());
-        } catch (NumberFormatException nfe) {
-            mContaminantPPM.setError(getString(R.string.error_contaminant));
+        if (!Pattern.matches("[-+]?[0-9]*\\.?[0-9]+?", mContaminantPPM.getText().toString())) {
             contaminantCancel = true;
+            mContaminantPPM.setError(getString(R.string.error_contaminant));
+        } else {
+            c = Double.parseDouble(mContaminantPPM.getText().toString());
         }
         if (cancel) {
             // There was an error; don't attempt submit and focus the location field
@@ -113,12 +105,19 @@ public class SubmitQualityReportActivity extends AppCompatActivity {
         } else if (contaminantCancel) {
             mContaminantPPM.requestFocus();
         } else {
+            Geocoder gc = new Geocoder(this);
+            List<Address> list = gc.getFromLocationName(location, 1);
+            Address add = list.get(0);
+            double lat = add.getLatitude();
+            double lng = add.getLongitude();
             // log quality report
-            Singleton.qualityreports.add(new QualityReport(
+            QualityReport q = new QualityReport(
                     String.valueOf(((TextView) findViewById(R.id.user_name)).getText()),
                     String.valueOf(((TextView) findViewById(R.id.text_time)).getText()),
-                    Singleton.qualityreports.size(), String.valueOf(mLocation.getText()),
-                    condition.getSelectedItem().toString(), v, c, lat, lng));
+                    Singleton.qualityreports.size() + 1, String.valueOf(mLocation.getText()),
+                    condition.getSelectedItem().toString(), v, c, lat, lng);
+            Singleton.qualityreports.add(q);
+            Singleton.addQualityReport(q);
             Context context = getApplicationContext();
             CharSequence text = "Report Submitted !!";
             int duration = Toast.LENGTH_SHORT;

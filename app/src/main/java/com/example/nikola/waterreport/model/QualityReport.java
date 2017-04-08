@@ -1,5 +1,8 @@
 package com.example.nikola.waterreport.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Quality/Purity report information holder.
  *
@@ -183,5 +186,22 @@ public class QualityReport {
                 + "\nCondition: " + mCondition + "\nLocation: " + mLocation
                 + "\nVirus PPM: " + mVirusPPM + "\nContaminant PPM: " + mContaminantPPM
                 + "\nLatitude: " + mLat + "\nLongitude: " + mLng + "\n\n";
+    }
+
+    public Map<String, Map<String, String>> getMap() {
+        Map<String, Map<String, String>> u = new HashMap<>();
+        Map<String, String> d = new HashMap<>();
+        d.put("id", String.valueOf(mId)); // must store as String for firebase
+        d.put("time", mTime);
+        d.put("username", mUserName);
+        d.put("condition", mCondition);
+        d.put("location", mLocation);
+        d.put("latitude", String.valueOf(mLat));
+        d.put("longitude", String.valueOf(mLng));
+        d.put("virus", String.valueOf(mVirusPPM));
+        d.put("contaminant", String.valueOf(mContaminantPPM));
+        u.put(String.valueOf(mLat).replaceAll("\\.", "")
+                + String.valueOf(mLng).replaceAll("\\.", "") + mTime.replaceAll("/", ""), d);
+        return u;
     }
 }

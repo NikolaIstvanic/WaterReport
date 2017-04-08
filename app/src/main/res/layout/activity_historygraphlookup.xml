@@ -11,47 +11,55 @@
         android:gravity="top"
         android:minHeight="4dp"/>
 
-    <TextView
-        android:id="@+id/year_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Year"
-        android:layout_below="@+id/location"
-        android:layout_alignStart="@+id/location_label"
-        android:layout_alignEnd="@+id/location_label" />
-
-    <TextView
-        android:id="@+id/location_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Location"
-        android:layout_below="@+id/graph"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:id="@+id/location"
-        android:inputType="number"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:layout_below="@+id/location_label"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/cancel"
-        android:text="@string/Cancel"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
     <EditText
         android:id="@+id/year"
         android:inputType="number"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:gravity="bottom"
-        android:layout_below="@+id/year_label"
+        android:layout_above="@+id/cancel"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/year_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Year"
+        android:layout_above="@+id/year"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/location"
+        android:inputType="text"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layout_above="@+id/year_label"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp" />
+        android:layout_marginBottom="13dp" />
+
+    <TextView
+        android:id="@+id/location_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Location"
+        android:layout_above="@+id/location"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/graph_button"
+        android:text="@string/graphIt"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/cancel"
+        android:text="@string/Cancel"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/graph_button" />
 </RelativeLayout>

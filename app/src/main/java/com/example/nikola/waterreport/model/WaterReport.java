@@ -1,6 +1,7 @@
 package com.example.nikola.waterreport.model;
 
-import android.util.Log;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Prithviraj Ammanabrolu.
@@ -151,14 +152,10 @@ public class WaterReport {
             return true;
         }
         WaterReport that = (WaterReport) a;
-        Log.d("LOCATION", getmLocation() + " " + that.getmLocation());
-        return getmLocation().equals(that.getmLocation());
-        /*
         return getmSource().equals(that.getmSource())
                 && getmLat() == that.getmLat()
                 && getmLng() == that.getmLng()
                 && getmId() == that.getmId();
-                */
     }
 
     /**
@@ -170,5 +167,21 @@ public class WaterReport {
         return "ID: " + mId + "\nCreated on " + mTime + "\nCreated by " + mUserName + "\nSource: "
                 + mSource + "\nCondition: " + mCondition + "\nLocation: " + mLocation
                 + "\nLatitude: " + mLat + "\nLongitude: " + mLng + "\n\n";
+    }
+
+    public Map<String, Map<String, String>> getMap() {
+        Map<String, Map<String, String>> u = new HashMap<>();
+        Map<String, String> d = new HashMap<>();
+        d.put("id", String.valueOf(mId));
+        d.put("time", mTime);
+        d.put("username", mUserName);
+        d.put("source", mSource);
+        d.put("condition", mCondition);
+        d.put("location", mLocation);
+        d.put("latitude", String.valueOf(mLat));
+        d.put("longitude", String.valueOf(mLng));
+        u.put(mSource + String.valueOf(mLat).replaceAll("\\.", "")
+                + String.valueOf(mLng).replaceAll("\\.", "") + mTime.replaceAll("/", ""), d);
+        return u;
     }
 }

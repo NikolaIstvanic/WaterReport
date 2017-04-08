@@ -6,14 +6,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.Map;
 
 /**
@@ -24,23 +21,18 @@ public class Singleton {
      * Database
      */
     private static FirebaseDatabase fdb = FirebaseDatabase.getInstance();
-
     /**
      * variable for storing mapping betweeen Username and User
      */
     public static Map<String, User> mappings = new HashMap<>();
     /**
-     * Database of submitted WaterReports
+     * variable for storing water reports locally
      */
-    public static Set<WaterReport> waterreports = new HashSet<>();
+    public static List<WaterReport> waterreports = new ArrayList<>();
     /**
-     * Database of submitted QualityReports
+     * variable for storing quality reports locally
      */
-    public static Set<QualityReport> qualityreports = new HashSet<>();
-    /**
-     * variable for storing how many users have been have been entered
-     */
-    public static int id_num = 0;
+    public static List<QualityReport> qualityreports = new ArrayList<>();
 
     /**
      * Add <String, Username> pair to database.
@@ -68,75 +60,92 @@ public class Singleton {
     }
 
     /**
-     * Add WaterReport to Firebase database
-     * @param w WaterReport being added
+     * Gives Virus PPM points to graph based on location/year
+     * @param location string specifying location to check
+     * @param year string specifying year to check
+     * @return graph points for VPPM
      */
-    public static void addWaterReport(WaterReport w) {
-        fdb.getReference("WaterReports").child(Integer.toString(w.getmId())).setValue(w);
+    public static HashMap<Integer, Double> VPPMValues(String location, String year) {
+        HashMap<Integer, Double> values = new HashMap<>();
+        int[] months = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+        for (int i = 1; i <= 12; i++) {
+            int num = 0;
+            double sum = 0;
+            for (QualityReport q : qualityreports) {
+                String r_year = q.getmTime().split(" ")[1].substring(6, 10);
+                String loc = q.getmLocation();
+                Integer reportMonth = Integer.parseInt(q.getmTime().split(" ")[1].substring(0, 2));
+                if (loc.equals(location) && r_year.equals(year) && reportMonth == i) {
+                    sum += q.getmVirusPPM();
+                    num++;
+                }
+            }
+            double avg = sum / num;
+            if (num != 0) {
+                values.put(months[i - 1], avg);
+            }
+        }
+        return values;
     }
 
     /**
-     * Add Quality/PurityReport to Firebase database
-     * @param q the quality report to add
+     * Gives Contaminant PPM points to graph based on location/year
+     * @param location string specifying location to check
+     * @param year string specifying year to check
+     * @return graph points for CPPM
      */
-    public static void addQualityReport(QualityReport q) {
-        fdb.getReference("QualityReports").child(Integer.toString(qualityreports.size())).setValue(q);
+    public static HashMap<Integer, Double> CPPMValues(String location, String year) {
+        HashMap<Integer, Double> values = new HashMap<>();
+        int[] months = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+        for (int i = 1; i <= 12; i++) {
+            int num = 0;
+            double sum = 0;
+            for (QualityReport q : qualityreports) {
+                String r_year = q.getmTime().split(" ")[1].substring(6, 10);
+                String loc = q.getmLocation();
+                Integer reportMonth = Integer.parseInt(q.getmTime().split(" ")[1].substring(0, 2));
+                if (loc.equals(location) && r_year.equals(year) && reportMonth == i) {
+                    sum += q.getmContaminantPPM();
+                    num++;
+                }
+            }
+            double avg = sum / num;
+            if (num != 0) {
+                values.put(months[i - 1], avg);
+            }
+        }
+        return values;
     }
 
     /**
      * Add User to Firebase database
      * @param u User to add
      */
-    public static void addUser(User u) {
-        u.setmId(mappings.size());
-        u.setmHomeAddress("");
-        u.setmTitle("Mr.");
-        fdb.getReference("Users").child(String.valueOf(u.getmId())).setValue(u);
-    }
-
-    public static void onDataChanged() {
-        DatabaseReference users = fdb.getReference().child("Users");
-        DatabaseReference water = fdb.getReference().child("WaterReports");
-        DatabaseReference quality = fdb.getReference().child("QualityReports");
-        users.addValueEventListener(new ValueEventListener() {
+    public static void addUser(final User u) {
+        DatabaseReference userrs = fdb.getReference().child("Users");
+        userrs.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again whenever data at this location is updated.
-                GenericTypeIndicator<List<User>> l = new GenericTypeIndicator<List<User>>() {};
-                List<User> users = dataSnapshot.getValue(l);
-                users.removeAll(Collections.singleton(null));
-                if (mappings.keySet().size() == 0) {
-                    for (User u : users) {
-                        addToMappings(u.getmUserName(), u);
-                    }
+                Object o = dataSnapshot.getValue();
+                if (!(o instanceof ArrayList)) {
+                    ArrayList<Map<String, Map<String, String>>> dbList = new ArrayList<>();
+                    dbList.add(u.getMap());
+                    fdb.getReference().child("Users").setValue(dbList);
                 } else {
-                    User u = users.get(users.size());
-                    mappings.put(u.getmUserName(), u);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.w("FAILURE", "Failed to read value.", error.toException());
-            }
-        });
-
-        water.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again whenever data at this location is updated.
-                waterreports.removeAll(Collections.singleton(null));
-                GenericTypeIndicator<List<WaterReport>> l =
-                        new GenericTypeIndicator<List<WaterReport>>() {};
-                List<WaterReport> reports = dataSnapshot.getValue(l);
-                reports.removeAll(Collections.singleton(null));
-                if (waterreports.size() == 0) {
-                    for (WaterReport r : reports) {
-                        waterreports.add(r);
+                    ArrayList existingList = (ArrayList) o;
+                    boolean valid = true;
+                    for (Object h : existingList) {
+                        if (h instanceof HashMap) {
+                            if (((HashMap) h).containsKey(u.getmUserName())) {
+                                valid = false;
+                                break;
+                            }
+                        }
                     }
-                } else {
-                    for (WaterReport r : reports) {
-                        waterreports.add(r);
+                    if (valid) {
+                        existingList.add(u.getMap());
+                        fdb.getReference().child("Users").setValue(existingList);
                     }
                 }
             }
@@ -147,22 +156,199 @@ public class Singleton {
                 Log.w("FAILURE", "Failed to read value.", error.toException());
             }
         });
+    }
 
-        quality.addValueEventListener(new ValueEventListener() {
+    /**
+     * Add WaterReport to Firebase database
+     * @param w WaterReport being added
+     */
+    public static void addWaterReport(final WaterReport w) {
+        DatabaseReference waterReports = fdb.getReference().child("WaterReports");
+        waterReports.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again whenever data at this location is updated.
-                GenericTypeIndicator<List<QualityReport>> l =
-                        new GenericTypeIndicator<List<QualityReport>>() {};
-                List<QualityReport> purities = dataSnapshot.getValue(l);
-                if (qualityreports.size() == 0) {
-                    for (QualityReport r : purities) {
-                        qualityreports.add(r);
-                    }
+                Object o = dataSnapshot.getValue();
+                if (!(o instanceof ArrayList)) {
+                    ArrayList<Map<String, Map<String, String>>> dbList = new ArrayList<>();
+                    dbList.add(w.getMap());
+                    fdb.getReference().child("WaterReports").setValue(dbList);
                 } else {
-                    for (QualityReport r : purities) {
-                        if (!qualityreports.contains(r)) {
-                            qualityreports.add(r);
+                    ArrayList existingList = (ArrayList) o;
+                    boolean valid = true;
+                    for (Object h : existingList) {
+                        if (h instanceof HashMap) {
+                            if (((HashMap) h).containsKey(w.getmSource()
+                                    + String.valueOf(w.getmLat()).replaceAll("\\.", "")
+                                    + String.valueOf(w.getmLng()).replaceAll("\\.", "")
+                                    + w.getmTime().replaceAll("/", ""))) {
+                                valid = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (valid) {
+                        existingList.add(w.getMap());
+                        fdb.getReference().child("WaterReports").setValue(existingList);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("FAILURE", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    /**
+     * Add Quality/PurityReport to Firebase database
+     * @param q the quality report to add
+     */
+    public static void addQualityReport(final QualityReport q) {
+        DatabaseReference qualityReports = fdb.getReference().child("QualityReports");
+        qualityReports.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again whenever data at this location is updated.
+                Object o = dataSnapshot.getValue();
+                if (!(o instanceof ArrayList)) {
+                    ArrayList<Map<String, Map<String, String>>> dbList = new ArrayList<>();
+                    dbList.add(q.getMap());
+                    fdb.getReference().child("QualityReports").setValue(dbList);
+                } else {
+                    ArrayList existingList = (ArrayList) o;
+                    boolean valid = true;
+                    for (Object h : existingList) {
+                        if (h instanceof HashMap) {
+                            if (((HashMap) h).containsKey(
+                                    String.valueOf(q.getmLat()).replaceAll("\\.", "")
+                                    + String.valueOf(q.getmLng()).replaceAll("\\.", "")
+                                    + q.getmTime().replaceAll("/", ""))) {
+                                valid = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (valid) {
+                        existingList.add(q.getMap());
+                        fdb.getReference().child("QualityReports").setValue(existingList);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("FAILURE", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    public static void updateLocal() {
+        DatabaseReference userDB = fdb.getReference().child("Users");
+        DatabaseReference waterDB = fdb.getReference().child("WaterReports");
+        DatabaseReference qualityDB = fdb.getReference().child("QualityReports");
+        userDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again whenever data at this location is updated.
+                Object o = dataSnapshot.getValue();
+                if (!(o instanceof ArrayList)) {
+
+                } else {
+                    ArrayList existingList = (ArrayList) o;
+                    for (Object h : existingList) {
+                        if (h instanceof HashMap) {
+                            HashMap<String, HashMap<String, String>> mapping = (HashMap<String, HashMap<String,String>>) h;
+                            String key = "";
+                            for (String s : mapping.keySet()) {
+                                key = s;
+                            }
+                            HashMap<String, String> existing = mapping.get(key);
+                            addToMappings(existing.get("username"),
+                                    new User(existing.get("username"),
+                                            existing.get("password"),
+                                            existing.get("email"),
+                                            existing.get("homeaddress"),
+                                            existing.get("title"),
+                                            existing.get("position")));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("FAILURE", "Failed to read value.", error.toException());
+            }
+        });
+        waterDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again whenever data at this location is updated.
+                Object o = dataSnapshot.getValue();
+                if (!(o instanceof ArrayList)) {
+
+                } else {
+                    ArrayList existingList = (ArrayList) o;
+                    for (Object h : existingList) {
+                        if (h instanceof HashMap) {
+                            HashMap<String, HashMap<String, String>> mapping = (HashMap<String, HashMap<String,String>>) h;
+                            String key = "";
+                            for (String s : mapping.keySet()) {
+                                key = s;
+                            }
+                            HashMap<String, String> existing = mapping.get(key);
+                            WaterReport wr = new WaterReport(existing.get("username"),
+                                    existing.get("time"), Integer.parseInt(existing.get("id")),
+                                    existing.get("location"), existing.get("source"),
+                                    existing.get("condition"),
+                                    Double.parseDouble(existing.get("latitude")),
+                                    Double.parseDouble(existing.get("longitude")));
+                            if (!waterreports.contains(wr)) {
+                                waterreports.add(wr);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("FAILURE", "Failed to read value.", error.toException());
+            }
+        });
+        qualityDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again whenever data at this location is updated.
+                Object o = dataSnapshot.getValue();
+                if (!(o instanceof ArrayList)) {
+
+                } else {
+                    ArrayList existingList = (ArrayList) o;
+                    for (Object h : existingList) {
+                        if (h instanceof HashMap) {
+                            HashMap<String, HashMap<String, String>> mapping = (HashMap<String, HashMap<String,String>>) h;
+                            String key = "";
+                            for (String s : mapping.keySet()) {
+                                key = s;
+                            }
+                            HashMap<String, String> existing = mapping.get(key);
+                            QualityReport qr = new QualityReport(existing.get("username"),
+                                    existing.get("time"), Integer.parseInt(existing.get("id")),
+                                    existing.get("location"), existing.get("condition"),
+                                    Double.parseDouble(existing.get("virus")),
+                                    Double.parseDouble(existing.get("contaminant")),
+                                    Double.parseDouble(existing.get("latitude")),
+                                    Double.parseDouble(existing.get("longitude")));
+                            if (!qualityreports.contains(qr)) {
+                                qualityreports.add(qr);
+                            }
                         }
                     }
                 }

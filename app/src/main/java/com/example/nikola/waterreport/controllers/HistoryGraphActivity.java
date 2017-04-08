@@ -1,12 +1,11 @@
 package com.example.nikola.waterreport.controllers;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,9 +17,10 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class GraphActivity extends AppCompatActivity {
+public class HistoryGraphActivity extends AppCompatActivity {
     private EditText locationField;
     private EditText yearField;
     private GraphView graph;
@@ -29,31 +29,42 @@ public class GraphActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historygraphlookup);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        locationField = (EditText) findViewById(R.id.location);
         yearField = (EditText) findViewById(R.id.year);
         graph = (GraphView) findViewById(R.id.graph);
+        locationField = (EditText) findViewById(R.id.location);
+        locationField.requestFocus();
+        Button graph = (Button) findViewById(R.id.graph_button);
+        graph.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                graphCreate();
+            }
+        });
+        Button cancel = (Button) findViewById(R.id.cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     /**
-     * Plots points on graph using the CPPM and VPPM Graph Points.
-     * @param v View to modify
+     * Creates graph of virus/contaminant PPM vs time
      */
-    public void graphCreate(View v) {
+    public void graphCreate() {
         String location = locationField.getText().toString();
         String year = yearField.getText().toString();
         if (!year.equals("") && !location.equals("")) {
-            HashMap<Integer, Double> CPPMGraphPoints = Singleton.getCPPMGraphPoints(location, year);
-            HashMap<Integer, Double> VPPMGraphPoints = Singleton.getVPPMGraphPoints(location, year);
-
-            ArrayList<DataPoint> CPPMValues = new ArrayList<>();
-            ArrayList<DataPoint> VPPMValues = new ArrayList<>();
+            Map<Integer, Double> VPPMGraphPoints = Singleton.VPPMValues(location, year);
+            Map<Integer, Double> CPPMGraphPoints = Singleton.CPPMValues(location, year);
+            List<DataPoint> CPPMValues = new ArrayList<>();
+            List<DataPoint> VPPMValues = new ArrayList<>();
             Integer[] keySet = new Integer[CPPMGraphPoints.keySet().size()];
-            int index = 0;
+            int i = 0;
             for (Integer key : CPPMGraphPoints.keySet()) {
-                keySet[index] = key;
-                index++;
+                keySet[i] = key;
+                i++;
             }
             Arrays.sort(keySet);
             for (Integer key : keySet) {
@@ -66,40 +77,26 @@ public class GraphActivity extends AppCompatActivity {
             }
             DataPoint[] CPPMArray = new DataPoint[CPPMValues.size()];
             DataPoint[] VPPMArray = new DataPoint[VPPMValues.size()];
-            for (int i = 0; i < CPPMArray.length; i++) {
-                CPPMArray[i] = CPPMValues.get(i);
-                VPPMArray[i] = VPPMValues.get(i);
+            for (int j = 0; j < CPPMArray.length; i++) {
+                CPPMArray[j] = CPPMValues.get(j);
+                VPPMArray[j] = VPPMValues.get(j);
             }
-
             LineGraphSeries<DataPoint> CPPMseries = new LineGraphSeries<>(CPPMArray);
-            CPPMseries.setTitle("PPM over the year " + year);
+            CPPMseries.setTitle("PPM over " + year);
             CPPMseries.setDrawDataPoints(true);
             CPPMseries.setColor(Color.GREEN);
             graph.addSeries(CPPMseries);
-
             LineGraphSeries<DataPoint> VPPMseries = new LineGraphSeries<>(VPPMArray);
-            VPPMseries.setTitle("PPM over the year " + year);
+            VPPMseries.setTitle("PPM over " + year);
             VPPMseries.setDrawDataPoints(true);
             VPPMseries.setColor(Color.RED);
             graph.addSeries(VPPMseries);
         } else {
             Context context = getApplicationContext();
-            CharSequence text = "Enter information into fields.";
+            CharSequence text = "Empty field(s)";
             int duration = Toast.LENGTH_SHORT;
-
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
         }
     }
-
-    /**
-     * Brings the user back to the main application
-     * @param view the cancel button
-     */
-    public void cancel(View view) {
-        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-        finish();
-        startActivity(intent);
-    }
-
 }

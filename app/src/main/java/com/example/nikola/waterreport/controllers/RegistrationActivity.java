@@ -202,9 +202,13 @@ public class RegistrationActivity extends AppCompatActivity {
                 return false;
             }
             /* add user to database */
-            User userToAdd = mType.equals("User") ? new User(mUser, mPass, mEmail)
-                    : mType.equals("Worker") ? new Worker(mUser, mPass, mEmail) : mType.equals("Manager")
-                    ? new Manager(mUser, mPass, mEmail) : new Admin(mUser, mPass, mEmail);
+            System.out.println(mType);
+            User userToAdd = mType.equals("Worker") ? new Worker(mUser, mPass, mEmail, "Worker")
+                    : mType.equals("Manager") ? new Manager(mUser, mPass, mEmail, "Manager")
+                    : mType.equals("Admin") ? new Admin(mUser, mPass, mEmail, "Admin")
+                    : new User(mUser, mPass, mEmail, "User");
+            userToAdd.setmHomeAddress("");
+            userToAdd.setmTitle("Mr.");
             Singleton.addToMappings(mUser, userToAdd);
             Singleton.addUser(userToAdd);
             return true;

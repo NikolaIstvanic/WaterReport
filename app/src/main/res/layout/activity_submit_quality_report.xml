@@ -89,16 +89,14 @@
         android:layout_below="@+id/condition_label"
         android:layout_toEndOf="@+id/reg_progress" />
 
-    <TextView
-        android:text="@string/virus_label"
-        android:textSize="30sp"
-        android:layout_width="wrap_content"
+    <EditText
+        android:hint=""
+        android:id="@+id/contaminant_ppm"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/virus_label"
-        tools:text="Virus PPM:"
-        android:layout_below="@+id/condition_spinner"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="22dp" />
+        android:maxLines="1"
+        android:layout_above="@+id/submit_report"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:text="@string/contaminant_label"
@@ -107,9 +105,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/contaminant_label"
         tools:text="Contaminant PPM:"
-        android:layout_above="@+id/submit_report"
-        android:layout_toEndOf="@+id/reg_progress"
-        android:layout_marginBottom="55dp" />
+        android:layout_above="@+id/contaminant_ppm"
+        android:layout_toEndOf="@+id/reg_progress" />
 
     <EditText
         android:hint=""
@@ -117,16 +114,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:layout_below="@+id/virus_label"
+        android:layout_above="@+id/contaminant_label"
         android:layout_alignParentStart="true" />
 
-    <EditText
-        android:hint=""
-        android:id="@+id/contaminant_ppm"
-        android:layout_width="match_parent"
+    <TextView
+        android:text="@string/virus_label"
+        android:textSize="30sp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:layout_above="@+id/submit_report"
-        android:layout_toEndOf="@+id/reg_progress"
-        android:layout_marginBottom="15dp" />
+        android:id="@+id/virus_label"
+        tools:text="Virus PPM:"
+        android:layout_above="@+id/virus_ppm"
+        android:layout_toEndOf="@+id/reg_progress" />
 </RelativeLayout>

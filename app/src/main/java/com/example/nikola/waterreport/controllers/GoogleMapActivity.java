@@ -18,6 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.List;
 import java.util.Set;
 
 public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -43,7 +44,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
      */
     @Override
     public void onMapReady(GoogleMap mMap) {
-        Set<WaterReport> reportList = Singleton.waterreports;
+        List<WaterReport> reportList = Singleton.waterreports;
         for (WaterReport wr : reportList) {
             LatLng loc = new LatLng(wr.getmLat(), wr.getmLng());
             mMap.addMarker(new MarkerOptions().position(loc).title(wr.getmUserName()).snippet(
@@ -51,7 +52,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
                             + "\nSource: " + wr.getmSource()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
-        Set<QualityReport> qualitylist = Singleton.qualityreports;
+        List<QualityReport> qualitylist = Singleton.qualityreports;
         for (QualityReport qr : qualitylist) {
             LatLng loc = new LatLng(qr.getmLat(), qr.getmLng());
             mMap.addMarker(new MarkerOptions().position(loc).title(qr.getmUserName()).snippet(

@@ -20,6 +20,7 @@ public class WorkerSelectReportActivity extends AppCompatActivity {
                 Intent i = new Intent(WorkerSelectReportActivity.this, SubmitQualityReportActivity.class);
                 i.putExtra(Intent.EXTRA_USER, getIntent().getExtras().getString(Intent.EXTRA_USER));
                 startActivityForResult(i, 0);
+                finish();
             }
         });
         Button regular = (Button) findViewById(R.id.worker_submit_report);
@@ -29,6 +30,7 @@ public class WorkerSelectReportActivity extends AppCompatActivity {
                 Intent i = new Intent(WorkerSelectReportActivity.this, ReportActivity.class);
                 i.putExtra(Intent.EXTRA_USER, getIntent().getExtras().getString(Intent.EXTRA_USER));
                 startActivityForResult(i, 0);
+                finish();
             }
         });
     }

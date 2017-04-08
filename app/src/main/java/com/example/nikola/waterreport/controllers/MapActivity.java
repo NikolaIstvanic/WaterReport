@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
 import java.util.Set;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -62,14 +63,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(markerOptions.getPosition()));
             }
         });
-        Set<WaterReport> reportList = Singleton.waterreports;
+        List<WaterReport> reportList = Singleton.waterreports;
         for (WaterReport wr : reportList) {
             LatLng loc = new LatLng(wr.getmLat(), wr.getmLng());
             mMap.addMarker(new MarkerOptions().position(loc).title(wr.getmUserName())
                     .snippet(wr.getmCondition() + " " + wr.getmLocation() + " " + wr.getmSource()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
-        Set<QualityReport> qualitylist = Singleton.qualityreports;
+        List<QualityReport> qualitylist = Singleton.qualityreports;
         for (QualityReport qr : qualitylist) {
             LatLng loc = new LatLng(qr.getmLat(), qr.getmLng());
             mMap.addMarker(new MarkerOptions().position(loc).title(qr.getmUserName())

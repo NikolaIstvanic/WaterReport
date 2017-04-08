@@ -80,11 +80,14 @@
     <string name="Virus">Virus/Contaminant:</string>
     <string name="Year">Year:</string>
     <string name="Submit">Submit</string>
-    <string name="title_activity_worker_select_report">WorkerSelectReportActivity</string>
     <string name="quality">Submit Quality Report</string>
     <string name="contaminant_label">Contaminant PPM:</string>
     <string name="virus_label">Virus PPM:</string>
     <string name="error_virus">Invalid entry for virus PPM</string>
     <string name="error_contaminant">Invalid entry for contaminant PPM</string>
     <string name="Cancel">Cancel</string>
+    <string name="QualityReport">Quality Report</string>
+    <string name="title_activity_worker_select_report">Choose report type</string>
+    <string name="Graph">Quality History Graph</string>
+    <string name="graphIt">Graph</string>
 </resources>
