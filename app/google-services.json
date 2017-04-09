@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "803372114155-83e5b3urrc4uq2j21sh3nh41nt587k3b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nikola.waterreport",
+            "certificate_hash": "2ae020b75bb8ed74595a186bc346175bd8ae83a3"
+          }
+        },
+        {
           "client_id": "803372114155-82ogn5u0e728cdrdeuagm61c15lrqocl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

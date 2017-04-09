@@ -20,7 +20,7 @@ public class SingletonLookupTest {
 
     @Test
     public void add_null_username() throws Exception {
-        assertEquals(Singleton.addToMappings(null, new User("", "")), false);
+        assertEquals(Singleton.addToMappings(null, new User("", "", "User")), false);
     }
 
     @Test
@@ -30,18 +30,18 @@ public class SingletonLookupTest {
 
     @Test
     public void add() throws Exception {
-        assertEquals(Singleton.addToMappings("", new User("", "")), true);
+        assertEquals(Singleton.addToMappings("", new User("", "", "User")), true);
     }
 
     @Test
     public void adding() throws Exception {
-        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola"));
-        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola"));
-        Singleton.addToMappings("Nikola", new User("Samuel", "Nikola"));
-        Singleton.addToMappings("Vishvak", new User("Vishvak", "Nikola"));
-        Singleton.addToMappings("Abhijeet", new User("Abhijeet", "Nikola"));
-        Singleton.addToMappings("Prithviraj", new User("Prithviraj", "Nikola"));
-        Singleton.addToMappings("Samuel", new User("Samuel", "Nikola"));
+        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola", "User"));
+        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola", "User"));
+        Singleton.addToMappings("Nikola", new User("Samuel", "Nikola", "User"));
+        Singleton.addToMappings("Vishvak", new User("Vishvak", "Nikola", "User"));
+        Singleton.addToMappings("Abhijeet", new User("Abhijeet", "Nikola", "User"));
+        Singleton.addToMappings("Prithviraj", new User("Prithviraj", "Nikola", "User"));
+        Singleton.addToMappings("Samuel", new User("Samuel", "Nikola", "User"));
 
         assertEquals(Singleton.mappings.size(), 5);
         assertEquals(Singleton.mappings.get("Nikola").getmUserName(), "Samuel");
@@ -50,13 +50,13 @@ public class SingletonLookupTest {
 
     @Test
     public void removing() throws Exception {
-        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola"));
-        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola"));
-        Singleton.addToMappings("Nikola", new User("Samuel", "Nikola"));
-        Singleton.addToMappings("Vishvak", new User("Vishvak", "Nikola"));
-        Singleton.addToMappings("Abhijeet", new User("Abhijeet", "Nikola"));
-        Singleton.addToMappings("Prithviraj", new User("Prithviraj", "Nikola"));
-        Singleton.addToMappings("Samuel", new User("Samuel", "Nikola"));
+        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola", "User"));
+        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola", "User"));
+        Singleton.addToMappings("Nikola", new User("Samuel", "Nikola", "User"));
+        Singleton.addToMappings("Vishvak", new User("Vishvak", "Nikola", "User"));
+        Singleton.addToMappings("Abhijeet", new User("Abhijeet", "Nikola", "User"));
+        Singleton.addToMappings("Prithviraj", new User("Prithviraj", "Nikola", "User"));
+        Singleton.addToMappings("Samuel", new User("Samuel", "Nikola", "User"));
 
         Singleton.mappings.remove("Jayden");
         assertEquals(Singleton.mappings.size(), 5);

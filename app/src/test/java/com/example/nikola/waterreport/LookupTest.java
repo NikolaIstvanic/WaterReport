@@ -35,12 +35,12 @@ public class LookupTest {
 
     @Test
     public void moreLookup() throws Exception {
-        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola"));
-        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola"));
-        Singleton.addToMappings("Nikola", new User("Samuel", "Nikola"));
-        Singleton.addToMappings("Samuel", new User("Samuel", "Nikola"));
+        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola", "User"));
+        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola", "User"));
+        Singleton.addToMappings("Nikola", new User("Samuel", "Nikola", "User"));
+        Singleton.addToMappings("Samuel", new User("Samuel", "Nikola", "User"));
 
-        Singleton.addToMappings("Prithviraj", new User("Prithviraj", "Nikola"));
+        Singleton.addToMappings("Prithviraj", new User("Prithviraj", "Nikola", "User"));
 
         assertEquals(Singleton.mappings.get("Prithviraj").getmUserName(), "Prithviraj");
         assertEquals(Singleton.lookup("Nikola", ""), false);
@@ -51,13 +51,13 @@ public class LookupTest {
 
     @Test
     public void removingLookup() throws Exception {
-        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola"));
-        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola"));
-        Singleton.addToMappings("Nikola", new User("Samuel", "Nikola"));
-        Singleton.addToMappings("Vishvak", new User("Vishvak", "Nikola"));
-        Singleton.addToMappings("Abhijeet", new User("Abhijeet", "Nikola"));
-        Singleton.addToMappings("Prithviraj", new User("Prithviraj", "Nikola"));
-        Singleton.addToMappings("Samuel", new User("Samuel", "Nikola"));
+        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola", "User"));
+        Singleton.addToMappings("Nikola", new User("Nikola", "Nikola", "User"));
+        Singleton.addToMappings("Nikola", new User("Samuel", "Nikola", "User"));
+        Singleton.addToMappings("Vishvak", new User("Vishvak", "Nikola", "User"));
+        Singleton.addToMappings("Abhijeet", new User("Abhijeet", "Nikola", "User"));
+        Singleton.addToMappings("Prithviraj", new User("Prithviraj", "Nikola", "User"));
+        Singleton.addToMappings("Samuel", new User("Samuel", "Nikola", "User"));
 
 
         Singleton.mappings.remove("Jayden");

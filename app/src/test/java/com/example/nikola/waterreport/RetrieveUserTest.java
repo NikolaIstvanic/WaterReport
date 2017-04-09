@@ -23,21 +23,23 @@ import static org.junit.Assert.assertEquals;
 
 public class RetrieveUserTest {
     private static FirebaseDatabase fdb = FirebaseDatabase.getInstance();
+    private static ArrayList<User> testUsers = new ArrayList<>();
 
-    public void clearAndAdd(final User userToAdd) {
+    public void addUser(final User userToAdd) {
         DatabaseReference users = fdb.getReference().child("TestUsers");
         users.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot d : dataSnapshot.getChildren()) {
-                    d.getRef().removeValue();
-                }
+                //for (DataSnapshot d : dataSnapshot.getChildren()) {
+                //    d.getRef().removeValue();
+                //}
                 // This method is called once with the initial value and again whenever data at this location is updated.
                 Object o = dataSnapshot.getValue();
                 if (!(o instanceof ArrayList)) {
                     ArrayList<Map<String, Map<String, String>>> dbList = new ArrayList<>();
                     dbList.add(userToAdd.getMap());
                     fdb.getReference().child("TestUsers").setValue(dbList);
+                    testUsers.add(userToAdd);
                 } else {
                     ArrayList existingList = (ArrayList) o;
                     boolean valid = true;
@@ -51,7 +53,12 @@ public class RetrieveUserTest {
                     }
                     if (valid) {
                         existingList.add(userToAdd.getMap());
-                        fdb.getReference().child("Users").setValue(existingList);
+                        fdb.getReference().child("TestUsers").setValue(existingList);
+                        for (Object u: existingList) {
+                            if (!testUsers.contains((User)u)) {
+                                testUsers.add((User)u);
+                            }
+                        }
                     }
                 }
             }
@@ -66,11 +73,17 @@ public class RetrieveUserTest {
 
     @Test
     public void checkIfAdded() {
-        final User nikola = new User("Nikola", "Nikola");
-        final User samuel = new User("Samuel", "Samuel");
-        final User prithviraj = new User("Prithviraj", "Prithviraj");
-        final User abhijeet = new User("Abhijeet", "Abhijeet");
-        final User vishvak = new User("Vishvak", "Vishvak");
+        final User nikola = new User("Nikola", "Nikola", "User");
+        final User samuel = new User("Samuel", "Samuel", "User");
+        final User prithviraj = new User("Prithviraj", "Prithviraj", "User");
+        final User abhijeet = new User("Abhijeet", "Abhijeet", "User");
+        final User vishvak = new User("Vishvak", "Vishvak", "User");
+        User[] uArray = {nikola, samuel, prithviraj, abhijeet, vishvak};
+        for (int i = 0; i < uArray.length; ++i) {
+            addUser(uArray[i]);
+            assertEquals(i + 1, testUsers.size());
+            assertEquals(true, testUsers.contains(uArray[i]));
+        }
 
     }
 }
