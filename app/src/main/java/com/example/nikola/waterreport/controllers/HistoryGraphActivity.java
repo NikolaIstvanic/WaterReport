@@ -55,8 +55,8 @@ public class HistoryGraphActivity extends AppCompatActivity {
         String location = locationField.getText().toString();
         String year = yearField.getText().toString();
         if (!year.equals("") && !location.equals("")) {
-            Map<Integer, Double> VPPMGraphPoints = Singleton.VPPMValues(location, year);
-            Map<Integer, Double> CPPMGraphPoints = Singleton.CPPMValues(location, year);
+            Map<Integer, Double> VPPMGraphPoints = Singleton.getInstance().VPPMValues(location, year);
+            Map<Integer, Double> CPPMGraphPoints = Singleton.getInstance().CPPMValues(location, year);
             List<DataPoint> VPPMValues = new ArrayList<>();
             List<DataPoint> CPPMValues = new ArrayList<>();
             Integer[] keySet = new Integer[CPPMGraphPoints.keySet().size()];

@@ -63,14 +63,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(markerOptions.getPosition()));
             }
         });
-        List<WaterReport> reportList = Singleton.waterreports;
+        List<WaterReport> reportList = Singleton.getInstance().waterreports;
         for (WaterReport wr : reportList) {
             LatLng loc = new LatLng(wr.getmLat(), wr.getmLng());
             mMap.addMarker(new MarkerOptions().position(loc).title(wr.getmUserName())
                     .snippet(wr.getmCondition() + " " + wr.getmLocation() + " " + wr.getmSource()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
-        List<QualityReport> qualitylist = Singleton.qualityreports;
+        List<QualityReport> qualitylist = Singleton.getInstance().qualityreports;
         for (QualityReport qr : qualitylist) {
             LatLng loc = new LatLng(qr.getmLat(), qr.getmLng());
             mMap.addMarker(new MarkerOptions().position(loc).title(qr.getmUserName())

@@ -15,17 +15,17 @@ public class ViewAllActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_all);
         TextView tv = (TextView) findViewById(R.id.all_reports);
-        if (Singleton.waterreports.size() <= 0) {
+        if (Singleton.getInstance().waterreports.size() <= 0) {
             tv.setText(getString(R.string.none));
         } else {
-            for (WaterReport wr : Singleton.waterreports) {
+            for (WaterReport wr : Singleton.getInstance().waterreports) {
                 tv.append(wr.toString() + "\n\n");
             }
         }
-        if (Singleton.waterreports.size() <= 0) {
+        if (Singleton.getInstance().waterreports.size() <= 0) {
             tv.setText(getString(R.string.none));
         } else {
-            for (QualityReport qr : Singleton.qualityreports) {
+            for (QualityReport qr : Singleton.getInstance().qualityreports) {
                 tv.append(qr.toString() + "\n\n");
             }
         }

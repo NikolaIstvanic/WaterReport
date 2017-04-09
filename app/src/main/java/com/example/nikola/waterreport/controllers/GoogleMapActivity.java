@@ -44,7 +44,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
      */
     @Override
     public void onMapReady(GoogleMap mMap) {
-        List<WaterReport> reportList = Singleton.waterreports;
+        List<WaterReport> reportList = Singleton.getInstance().waterreports;
         for (WaterReport wr : reportList) {
             LatLng loc = new LatLng(wr.getmLat(), wr.getmLng());
             mMap.addMarker(new MarkerOptions().position(loc).title(wr.getmUserName()).snippet(
@@ -52,7 +52,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
                             + "\nSource: " + wr.getmSource()));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
         }
-        List<QualityReport> qualitylist = Singleton.qualityreports;
+        List<QualityReport> qualitylist = Singleton.getInstance().qualityreports;
         for (QualityReport qr : qualitylist) {
             LatLng loc = new LatLng(qr.getmLat(), qr.getmLng());
             mMap.addMarker(new MarkerOptions().position(loc).title(qr.getmUserName()).snippet(

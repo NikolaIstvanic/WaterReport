@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onClick(View view) {
                 String user_name = getIntent().getExtras().getString(Intent.EXTRA_USER);
                 // search for type of user
-                if (Singleton.mappings.get(user_name).getmPosition().equals("Worker")) {
+                if (Singleton.getInstance().mappings.get(user_name).getmPosition().equals("Worker")) {
                     Intent i = new Intent(MainActivity.this, WorkerSelectReportActivity.class);
                     i.putExtra(Intent.EXTRA_USER, getIntent().getExtras().getString(Intent.EXTRA_USER));
                     startActivityForResult(i, 0);
@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User currentUser = Singleton.mappings.get(getIntent().getExtras().getString(Intent.EXTRA_USER));
-                if (Singleton.mappings.get(currentUser.getmUserName()).getmPosition().equals("Manager")) {
+                User currentUser = Singleton.getInstance().mappings.get(getIntent().getExtras().getString(Intent.EXTRA_USER));
+                if (Singleton.getInstance().mappings.get(currentUser.getmUserName()).getmPosition().equals("Manager")) {
                     Intent i = new Intent(MainActivity.this, HistoryGraphActivity.class);
                     startActivityForResult(i, 0);
                 } else {
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
      * Called after the end of each Activity which is not Main (acts like a refresher).
      */
     public void displayToMap() {
-        List<WaterReport> reportList = Singleton.waterreports;
+        List<WaterReport> reportList = Singleton.getInstance().waterreports;
         for (WaterReport wr : reportList) {
             if (wr != null) {
                 LatLng loc = new LatLng(wr.getmLat(), wr.getmLng());
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
             }
         }
-        List<QualityReport> qualitylist = Singleton.qualityreports;
+        List<QualityReport> qualitylist = Singleton.getInstance().qualityreports;
         for (QualityReport qr : qualitylist) {
             if (qr != null) {
                 LatLng loc = new LatLng(qr.getmLat(), qr.getmLng());

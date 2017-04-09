@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
             mUserView.setError(getString(R.string.error_invalid_email));
             focusView = mUserView;
             cancel = true;
-        } else if (!Singleton.mappings.containsKey(username)) {
+        } else if (!Singleton.getInstance().mappings.containsKey(username)) {
             mUserView.setError((getString(R.string.error_not_exists)));
             focusView = mUserView;
             cancel = true;
@@ -168,8 +168,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             // check username to User hashmap
-            if (Singleton.mappings.keySet().contains(mUser)) {
-                return Singleton.lookup(mUser, mPassword);
+            if (Singleton.getInstance().mappings.keySet().contains(mUser)) {
+                return Singleton.getInstance().lookup(mUser, mPassword);
             }
             return false;
         }

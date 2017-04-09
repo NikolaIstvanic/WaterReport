@@ -17,22 +17,36 @@ import java.util.Map;
  * @author Nikola Istvanic
  */
 public class Singleton {
+    private static final Singleton instance = new Singleton();
     /**
      * Database
      */
-    private static FirebaseDatabase fdb = FirebaseDatabase.getInstance();
+    private FirebaseDatabase fdb = FirebaseDatabase.getInstance();
     /**
      * variable for storing mapping betweeen Username and User
      */
-    public static Map<String, User> mappings = new HashMap<>();
+    public Map<String, User> mappings = new HashMap<>();
     /**
      * variable for storing water reports locally
      */
-    public static List<WaterReport> waterreports = new ArrayList<>();
+    public List<WaterReport> waterreports = new ArrayList<>();
     /**
      * variable for storing quality reports locally
      */
-    public static List<QualityReport> qualityreports = new ArrayList<>();
+    public List<QualityReport> qualityreports = new ArrayList<>();
+
+    /**
+     * Private constructor so there are no multiple instances
+     */
+    private Singleton() {}
+
+    /**
+     * Returns instance of Singleton
+     * @return instance of Singleton
+     */
+    public static Singleton getInstance() {
+        return instance;
+    }
 
     /**
      * Add <String, Username> pair to database.
@@ -40,7 +54,7 @@ public class Singleton {
      * @param user User whose username is username
      * @return True if entry was added, false otherwise
      */
-    public static boolean addToMappings(String username, User user) {
+    public boolean addToMappings(String username, User user) {
         if (username == null || user == null) {
             return false;
         }
@@ -55,7 +69,7 @@ public class Singleton {
      * @param password the password entered by user
      * @return true if the mapping exists false elsewhere
      */
-    public static boolean lookup(String username, String password) {
+    public boolean lookup(String username, String password) {
         return !(mappings.get(username) == null || mappings.isEmpty()) && mappings.get(username).authenticate(password);
     }
 
@@ -65,7 +79,7 @@ public class Singleton {
      * @param year year string
      * @return map of graph points
      */
-    public static HashMap<Integer, Double> VPPMValues(String location, String year) {
+    public HashMap<Integer, Double> VPPMValues(String location, String year) {
         HashMap<Integer, Double> values = new HashMap<>();
         int[] months = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         for (int i = 1; i <= 12; i++) {
@@ -93,7 +107,7 @@ public class Singleton {
      * @param year year string
      * @return map of graph points
      */
-    public static HashMap<Integer, Double> CPPMValues(String location, String year) {
+    public HashMap<Integer, Double> CPPMValues(String location, String year) {
         HashMap<Integer, Double> values = new HashMap<>();
         int[] months = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         for (int i = 1; i <= 12; i++) {
@@ -119,7 +133,7 @@ public class Singleton {
      * Add User to Firebase database
      * @param u User to add
      */
-    public static void addUser(final User u) {
+    public void addUser(final User u) {
         DatabaseReference userrs = fdb.getReference().child("Users");
         userrs.addValueEventListener(new ValueEventListener() {
             @Override
@@ -160,7 +174,7 @@ public class Singleton {
      * Add WaterReport to Firebase database
      * @param w WaterReport being added
      */
-    public static void addWaterReport(final WaterReport w) {
+    public void addWaterReport(final WaterReport w) {
         DatabaseReference waterReports = fdb.getReference().child("WaterReports");
         waterReports.addValueEventListener(new ValueEventListener() {
             @Override
@@ -204,7 +218,7 @@ public class Singleton {
      * Add Quality/PurityReport to Firebase database
      * @param q the quality report to add
      */
-    public static void addQualityReport(final QualityReport q) {
+    public void addQualityReport(final QualityReport q) {
         DatabaseReference qualityReports = fdb.getReference().child("QualityReports");
         qualityReports.addValueEventListener(new ValueEventListener() {
             @Override
@@ -244,7 +258,7 @@ public class Singleton {
         });
     }
 
-    public static void updateLocal() {
+    public void updateLocal() {
         DatabaseReference userDB = fdb.getReference().child("Users");
         DatabaseReference waterDB = fdb.getReference().child("WaterReports");
         DatabaseReference qualityDB = fdb.getReference().child("QualityReports");

@@ -121,7 +121,7 @@ public class RegistrationActivity extends AppCompatActivity {
             focusView = mIDView;
             cancel = true;
         }
-        if (Singleton.mappings.keySet().contains(username)) {
+        if (Singleton.getInstance().mappings.keySet().contains(username)) {
             mUserView.setError(getString(R.string.error_exists));
             focusView = mUserView;
             cancel = true;
@@ -209,8 +209,8 @@ public class RegistrationActivity extends AppCompatActivity {
                     : new User(mUser, mPass, mEmail, "User");
             userToAdd.setmHomeAddress("");
             userToAdd.setmTitle("Mr.");
-            Singleton.addToMappings(mUser, userToAdd);
-            Singleton.addUser(userToAdd);
+            Singleton.getInstance().addToMappings(mUser, userToAdd);
+            Singleton.getInstance().addUser(userToAdd);
             return true;
         }
 

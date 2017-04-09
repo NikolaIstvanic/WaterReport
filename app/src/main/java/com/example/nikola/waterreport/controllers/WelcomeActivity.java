@@ -16,7 +16,7 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         FirebaseApp.initializeApp(this);
-        Singleton.updateLocal();
+        Singleton.getInstance().updateLocal();
         Button log = (Button) findViewById(R.id.button_login);
         log.setOnClickListener(new View.OnClickListener() {
             @Override

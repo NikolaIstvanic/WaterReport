@@ -44,7 +44,7 @@ public class ReportActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.US);
         ((TextView) findViewById(R.id.text_time)).setText(getString(R.string.date, sdf.format(new Date())));
         ((TextView) findViewById(R.id.user_name)).setText(getString(R.string.getUser, getIntent().getExtras().getString(Intent.EXTRA_USER)));
-        ((TextView) findViewById(R.id.report_number)).setText(getString(R.string.ReportID, Singleton.waterreports.size() + 1));
+        ((TextView) findViewById(R.id.report_number)).setText(getString(R.string.ReportID, Singleton.getInstance().waterreports.size() + 1));
         final Button submitReport = (Button) findViewById(R.id.submit_report);
         submitReport.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,15 +93,15 @@ public class ReportActivity extends AppCompatActivity {
             double lat = add.getLatitude();
             double lng = add.getLongitude();
             // log water report
-            User currentUser = Singleton.mappings.get(getIntent().getExtras().getString(Intent.EXTRA_USER));
+            User currentUser = Singleton.getInstance().mappings.get(getIntent().getExtras().getString(Intent.EXTRA_USER));
             WaterReport w = new WaterReport(
                     currentUser.getmUserName(),
                     String.valueOf(((TextView) findViewById(R.id.text_time)).getText()),
-                    Singleton.waterreports.size() + 1, String.valueOf(mLocation.getText()),
+                    Singleton.getInstance().waterreports.size() + 1, String.valueOf(mLocation.getText()),
                     source.getSelectedItem().toString(), condition.getSelectedItem().toString(),
                     lat, lng);
-            Singleton.waterreports.add(w);
-            Singleton.addWaterReport(w);
+            Singleton.getInstance().waterreports.add(w);
+            Singleton.getInstance().addWaterReport(w);
             Context context = getApplicationContext();
             CharSequence text = "Report Submitted !!";
             int duration = Toast.LENGTH_SHORT;

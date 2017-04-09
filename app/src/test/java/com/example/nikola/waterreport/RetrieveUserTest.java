@@ -26,7 +26,7 @@ public class RetrieveUserTest {
     private static ArrayList<User> testUsers = new ArrayList<>();
 
     public void addUser(final User userToAdd) {
-        DatabaseReference users = fdb.getReference().child("TestUsers");
+        DatabaseReference users = fdb.getReference().child("Users");
         users.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -53,10 +53,10 @@ public class RetrieveUserTest {
                     }
                     if (valid) {
                         existingList.add(userToAdd.getMap());
-                        fdb.getReference().child("TestUsers").setValue(existingList);
+                        fdb.getReference().child("Users").setValue(existingList);
                         for (Object u: existingList) {
-                            if (!testUsers.contains((User)u)) {
-                                testUsers.add((User)u);
+                            if (!testUsers.contains((User) u)) {
+                                testUsers.add((User) u);
                             }
                         }
                     }
@@ -84,6 +84,5 @@ public class RetrieveUserTest {
             assertEquals(i + 1, testUsers.size());
             assertEquals(true, testUsers.contains(uArray[i]));
         }
-
     }
 }

@@ -52,7 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
         mTitle.setAdapter(adap);
         // get the current user
         String user_name = getIntent().getExtras().getString(Intent.EXTRA_USER);
-        mCurrentUser = Singleton.mappings.get(user_name);
+        mCurrentUser = Singleton.getInstance().mappings.get(user_name);
         // if the profile values are already set then display those values
         if (mCurrentUser.getmEmail() != null) {
             mEmailAddress.setText(mCurrentUser.getmEmail());
