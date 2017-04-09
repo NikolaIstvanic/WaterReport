@@ -60,10 +60,10 @@ public class Singleton {
     }
 
     /**
-     * Gives Virus PPM points to graph based on location/year
-     * @param location string specifying location to check
-     * @param year string specifying year to check
-     * @return graph points for VPPM
+     * Returns mapping of month to virus PPM
+     * @param location location string
+     * @param year year string
+     * @return map of graph points
      */
     public static HashMap<Integer, Double> VPPMValues(String location, String year) {
         HashMap<Integer, Double> values = new HashMap<>();
@@ -73,14 +73,13 @@ public class Singleton {
             double sum = 0;
             for (QualityReport q : qualityreports) {
                 String r_year = q.getmTime().split(" ")[1].substring(6, 10);
-                String loc = q.getmLocation();
                 Integer reportMonth = Integer.parseInt(q.getmTime().split(" ")[1].substring(0, 2));
-                if (loc.equals(location) && r_year.equals(year) && reportMonth == i) {
+                if (q.getmLocation().equals(location) && r_year.equals(year) && reportMonth == i) {
                     sum += q.getmVirusPPM();
                     num++;
                 }
             }
-            double avg = sum / num;
+            double avg = num == 0 ? 0 : sum / num;
             if (num != 0) {
                 values.put(months[i - 1], avg);
             }
@@ -89,10 +88,10 @@ public class Singleton {
     }
 
     /**
-     * Gives Contaminant PPM points to graph based on location/year
-     * @param location string specifying location to check
-     * @param year string specifying year to check
-     * @return graph points for CPPM
+     * Returns mapping of month to contaminant PPM
+     * @param location location string
+     * @param year year string
+     * @return map of graph points
      */
     public static HashMap<Integer, Double> CPPMValues(String location, String year) {
         HashMap<Integer, Double> values = new HashMap<>();
@@ -102,14 +101,13 @@ public class Singleton {
             double sum = 0;
             for (QualityReport q : qualityreports) {
                 String r_year = q.getmTime().split(" ")[1].substring(6, 10);
-                String loc = q.getmLocation();
                 Integer reportMonth = Integer.parseInt(q.getmTime().split(" ")[1].substring(0, 2));
-                if (loc.equals(location) && r_year.equals(year) && reportMonth == i) {
+                if (q.getmLocation().equals(location) && r_year.equals(year) && reportMonth == i) {
                     sum += q.getmContaminantPPM();
                     num++;
                 }
             }
-            double avg = sum / num;
+            double avg = num == 0 ? 0 : sum / num;
             if (num != 0) {
                 values.put(months[i - 1], avg);
             }

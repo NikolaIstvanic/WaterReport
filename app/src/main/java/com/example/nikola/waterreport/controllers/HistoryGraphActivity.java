@@ -1,7 +1,6 @@
 package com.example.nikola.waterreport.controllers;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -58,8 +57,8 @@ public class HistoryGraphActivity extends AppCompatActivity {
         if (!year.equals("") && !location.equals("")) {
             Map<Integer, Double> VPPMGraphPoints = Singleton.VPPMValues(location, year);
             Map<Integer, Double> CPPMGraphPoints = Singleton.CPPMValues(location, year);
-            List<DataPoint> CPPMValues = new ArrayList<>();
             List<DataPoint> VPPMValues = new ArrayList<>();
+            List<DataPoint> CPPMValues = new ArrayList<>();
             Integer[] keySet = new Integer[CPPMGraphPoints.keySet().size()];
             int i = 0;
             for (Integer key : CPPMGraphPoints.keySet()) {
@@ -68,29 +67,27 @@ public class HistoryGraphActivity extends AppCompatActivity {
             }
             Arrays.sort(keySet);
             for (Integer key : keySet) {
-                Double val1 = CPPMGraphPoints.get(key);
-                Double val2 = VPPMGraphPoints.get(key);
-                DataPoint point1 = new DataPoint(key, val1);
-                DataPoint point2 = new DataPoint(key, val2);
-                CPPMValues.add(point1);
-                VPPMValues.add(point2);
+                Double vppm = VPPMGraphPoints.get(key);
+                Double cppm = CPPMGraphPoints.get(key);
+                DataPoint point1 = new DataPoint(key, vppm);
+                DataPoint point2 = new DataPoint(key, cppm);
+                VPPMValues.add(point1);
+                CPPMValues.add(point2);
             }
-            DataPoint[] CPPMArray = new DataPoint[CPPMValues.size()];
             DataPoint[] VPPMArray = new DataPoint[VPPMValues.size()];
-            for (int j = 0; j < CPPMArray.length; i++) {
-                CPPMArray[j] = CPPMValues.get(j);
+            DataPoint[] CPPMArray = new DataPoint[CPPMValues.size()];
+            for (int j = 0; j < CPPMArray.length; j++) {
                 VPPMArray[j] = VPPMValues.get(j);
+                CPPMArray[j] = CPPMValues.get(j);
             }
-            LineGraphSeries<DataPoint> CPPMseries = new LineGraphSeries<>(CPPMArray);
-            CPPMseries.setTitle("PPM over " + year);
-            CPPMseries.setDrawDataPoints(true);
-            CPPMseries.setColor(Color.GREEN);
-            graph.addSeries(CPPMseries);
             LineGraphSeries<DataPoint> VPPMseries = new LineGraphSeries<>(VPPMArray);
             VPPMseries.setTitle("PPM over " + year);
             VPPMseries.setDrawDataPoints(true);
-            VPPMseries.setColor(Color.RED);
             graph.addSeries(VPPMseries);
+            LineGraphSeries<DataPoint> CPPMseries = new LineGraphSeries<>(CPPMArray);
+            CPPMseries.setTitle("PPM over " + year);
+            CPPMseries.setDrawDataPoints(true);
+            graph.addSeries(CPPMseries);
         } else {
             Context context = getApplicationContext();
             CharSequence text = "Empty field(s)";
