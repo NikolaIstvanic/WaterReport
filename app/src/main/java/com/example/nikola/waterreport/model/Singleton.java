@@ -134,7 +134,6 @@ public class Singleton {
      * @param u User to add
      */
     public void addUser(final User u) {
-        System.out.print("adddd");
         DatabaseReference userrs = fdb.getReference().child("Users");
         userrs.addValueEventListener(new ValueEventListener() {
             @Override
