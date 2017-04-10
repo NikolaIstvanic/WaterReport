@@ -90,4 +90,6 @@
     <string name="title_activity_worker_select_report">Choose report type</string>
     <string name="Graph">Quality History Graph</string>
     <string name="graphIt">Graph</string>
+    <string name="Virus_text">Virus PPM</string>
+    <string name="Contaminant_text">Contaminant PPM</string>
 </resources>

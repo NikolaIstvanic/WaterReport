@@ -62,4 +62,23 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/graph_button" />
+
+    <TextView
+        android:id="@+id/virus_text"
+        android:text="@string/Virus_text"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layout_below="@+id/graph"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/contaminant_text"
+        android:text="@string/Contaminant_text"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layout_alignBaseline="@+id/virus_text"
+        android:layout_alignBottom="@+id/virus_text"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nikola.waterreport.R;
@@ -33,6 +34,10 @@ public class HistoryGraphActivity extends AppCompatActivity {
         graph = (GraphView) findViewById(R.id.graph);
         locationField = (EditText) findViewById(R.id.location);
         locationField.requestFocus();
+        TextView virus_text = (TextView) findViewById(R.id.virus_text);
+        virus_text.setTextColor(Color.RED);
+        TextView contaminant_text = (TextView) findViewById(R.id.contaminant_text);
+        contaminant_text.setTextColor(Color.CYAN);
         Button graph = (Button) findViewById(R.id.graph_button);
         graph.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +95,7 @@ public class HistoryGraphActivity extends AppCompatActivity {
             CPPMSeries.setDrawDataPoints(true);
             CPPMSeries.setColor(Color.CYAN);
             graph.addSeries(CPPMSeries);
+            graph.setTitle("Virus and Contaminant PPM by month in " + location);
         } else {
             Context context = getApplicationContext();
             CharSequence text = "Empty field(s)";
