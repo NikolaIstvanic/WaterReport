@@ -3,7 +3,6 @@ package com.example.nikola.waterreport.model;
 /**
  * @author Nikola Istvnaic
  */
-
 public class Admin extends User {
     public Admin() {}
 
@@ -11,4 +10,3 @@ public class Admin extends User {
         super(username, password, ID, position);
     }
 }
-

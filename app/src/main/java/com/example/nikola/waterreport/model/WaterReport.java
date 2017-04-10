@@ -106,34 +106,66 @@ public class WaterReport {
         return mLng;
     }
 
+    /**
+     * Setter for condition
+     * @param mCondition new condition String
+     */
     public void setmCondition(String mCondition) {
         this.mCondition = mCondition;
     }
 
+    /**
+     * Setter for WaterReport's ID
+     * @param mId new ID
+     */
     public void setmId(int mId) {
         this.mId = mId;
     }
 
+    /**
+     * Setter for latitude
+     * @param mLat new latitude
+     */
     public void setmLat(double mLat) {
         this.mLat = mLat;
     }
 
+    /**
+     * Setter for longitude
+     * @param mLng new longitude
+     */
     public void setmLng(double mLng) {
         this.mLng = mLng;
     }
 
+    /**
+     * Setter for location
+     * @param mLocation new location
+     */
     public void setmLocation(String mLocation) {
         this.mLocation = mLocation;
     }
 
+    /**
+     * Setter for source String
+     * @param mSource new source
+     */
     public void setmSource(String mSource) {
         this.mSource = mSource;
     }
 
+    /**
+     * Setter for time
+     * @param mTime new time String
+     */
     public void setmTime(String mTime) {
         this.mTime = mTime;
     }
 
+    /**
+     * Setter for this WaterReport's username for User who filed it
+     * @param mUserName new username
+     */
     public void setmUserName(String mUserName) {
         this.mUserName = mUserName;
     }
@@ -169,6 +201,10 @@ public class WaterReport {
                 + "\nLatitude: " + mLat + "\nLongitude: " + mLng + "\n\n";
     }
 
+    /**
+     * Getter for Mapping which is required for Firebase
+     * @return mapping of unique identifier for this WaterReport to a map of its fields
+     */
     public Map<String, Map<String, String>> getMap() {
         Map<String, Map<String, String>> u = new HashMap<>();
         Map<String, String> d = new HashMap<>();

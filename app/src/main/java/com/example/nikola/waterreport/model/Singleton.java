@@ -70,7 +70,8 @@ public class Singleton {
      * @return true if the mapping exists false elsewhere
      */
     public boolean lookup(String username, String password) {
-        return !(mappings.get(username) == null || mappings.isEmpty()) && mappings.get(username).authenticate(password);
+        return !(mappings.get(username) == null || mappings.isEmpty())
+                && mappings.get(username).authenticate(password);
     }
 
     /**
@@ -139,7 +140,8 @@ public class Singleton {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.print("change");
-                // This method is called once with the initial value and again whenever data at this location is updated.
+                // This method is called once with the initial value and again whenever data
+                // at this location is updated.
                 Object o = dataSnapshot.getValue();
                 if (!(o instanceof ArrayList)) {
                     ArrayList<Map<String, Map<String, String>>> dbList = new ArrayList<>();
@@ -180,7 +182,8 @@ public class Singleton {
         waterReports.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again whenever data at this location is updated.
+                // This method is called once with the initial value and again whenever data
+                // at this location is updated.
                 Object o = dataSnapshot.getValue();
                 if (!(o instanceof ArrayList)) {
                     ArrayList<Map<String, Map<String, String>>> dbList = new ArrayList<>();
@@ -224,7 +227,8 @@ public class Singleton {
         qualityReports.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again whenever data at this location is updated.
+                // This method is called once with the initial value and again whenever data
+                // at this location is updated.
                 Object o = dataSnapshot.getValue();
                 if (!(o instanceof ArrayList)) {
                     ArrayList<Map<String, Map<String, String>>> dbList = new ArrayList<>();
@@ -267,15 +271,15 @@ public class Singleton {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.print("jhererererer");
-                // This method is called once with the initial value and again whenever data at this location is updated.
+                // This method is called once with the initial value and again whenever data
+                // at this location is updated.
                 Object o = dataSnapshot.getValue();
-                if (!(o instanceof ArrayList)) {
-
-                } else {
+                if (o instanceof ArrayList) {
                     ArrayList existingList = (ArrayList) o;
                     for (Object h : existingList) {
                         if (h instanceof HashMap) {
-                            HashMap<String, HashMap<String, String>> mapping = (HashMap<String, HashMap<String,String>>) h;
+                            HashMap<String, HashMap<String, String>> mapping
+                                    = (HashMap<String, HashMap<String,String>>) h;
                             String key = "";
                             for (String s : mapping.keySet()) {
                                 key = s;
@@ -302,15 +306,15 @@ public class Singleton {
         waterDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again whenever data at this location is updated.
+                // This method is called once with the initial value and again whenever data
+                // at this location is updated.
                 Object o = dataSnapshot.getValue();
-                if (!(o instanceof ArrayList)) {
-
-                } else {
+                if (o instanceof ArrayList) {
                     ArrayList existingList = (ArrayList) o;
                     for (Object h : existingList) {
                         if (h instanceof HashMap) {
-                            HashMap<String, HashMap<String, String>> mapping = (HashMap<String, HashMap<String,String>>) h;
+                            HashMap<String, HashMap<String, String>> mapping
+                                    = (HashMap<String, HashMap<String,String>>) h;
                             String key = "";
                             for (String s : mapping.keySet()) {
                                 key = s;
@@ -339,15 +343,15 @@ public class Singleton {
         qualityDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again whenever data at this location is updated.
+                // This method is called once with the initial value and again whenever data
+                // at this location is updated.
                 Object o = dataSnapshot.getValue();
-                if (!(o instanceof ArrayList)) {
-
-                } else {
+                if (o instanceof ArrayList) {
                     ArrayList existingList = (ArrayList) o;
                     for (Object h : existingList) {
                         if (h instanceof HashMap) {
-                            HashMap<String, HashMap<String, String>> mapping = (HashMap<String, HashMap<String,String>>) h;
+                            HashMap<String, HashMap<String, String>> mapping
+                                    = (HashMap<String, HashMap<String,String>>) h;
                             String key = "";
                             for (String s : mapping.keySet()) {
                                 key = s;

@@ -121,38 +121,74 @@ public class QualityReport {
         return mLng;
     }
 
+    /**
+     * Setter for username
+     * @param mUserName new username
+     */
     public void setmUserName(String mUserName) {
         this.mUserName = mUserName;
     }
 
+    /**
+     * Setter for time
+     * @param mTime new time
+     */
     public void setmTime(String mTime) {
         this.mTime = mTime;
     }
 
+    /**
+     * Setter for location string
+     * @param mLocation new location
+     */
     public void setmLocation(String mLocation) {
         this.mLocation = mLocation;
     }
 
+    /**
+     * Setter for longitude
+     * @param mLng new longitude
+     */
     public void setmLng(double mLng) {
         this.mLng = mLng;
     }
 
+    /**
+     * Setter for condition string
+     * @param mCondition new condition
+     */
     public void setmCondition(String mCondition) {
         this.mCondition = mCondition;
     }
 
+    /**
+     * Setter for contaminant PPM
+     * @param mContaminantPPM new PPM
+     */
     public void setmContaminantPPM(double mContaminantPPM) {
         this.mContaminantPPM = mContaminantPPM;
     }
 
+    /**
+     * Setter for ID
+     * @param mId new QualityReport ID
+     */
     public void setmId(int mId) {
         this.mId = mId;
     }
 
+    /**
+     * Setter for latitude
+     * @param mLat new latitude
+     */
     public void setmLat(double mLat) {
         this.mLat = mLat;
     }
 
+    /**
+     * Setter for virus PPM
+     * @param mVirusPPM new PPM
+     */
     public void setmVirusPPM(double mVirusPPM) {
         this.mVirusPPM = mVirusPPM;
     }
@@ -188,6 +224,10 @@ public class QualityReport {
                 + "\nLatitude: " + mLat + "\nLongitude: " + mLng + "\n\n";
     }
 
+    /**
+     * Getter for Mapping which is required for Firebase
+     * @return mapping of unique identifier for this QualityReport to a map of its fields
+     */
     public Map<String, Map<String, String>> getMap() {
         Map<String, Map<String, String>> u = new HashMap<>();
         Map<String, String> d = new HashMap<>();
