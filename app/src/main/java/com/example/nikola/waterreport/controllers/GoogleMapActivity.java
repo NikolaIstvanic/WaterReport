@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.Set;
 
 public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCallback {
     @Override

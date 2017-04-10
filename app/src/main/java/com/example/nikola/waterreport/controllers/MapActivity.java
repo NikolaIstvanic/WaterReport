@@ -18,7 +18,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
-import java.util.Set;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
@@ -81,7 +80,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     }
 
     class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
-
         private final View myContentsView;
 
         CustomInfoWindowAdapter() {

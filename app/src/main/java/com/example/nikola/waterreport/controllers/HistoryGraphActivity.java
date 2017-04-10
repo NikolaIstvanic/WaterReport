@@ -1,6 +1,7 @@
 package com.example.nikola.waterreport.controllers;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -62,8 +63,7 @@ public class HistoryGraphActivity extends AppCompatActivity {
             Integer[] keySet = new Integer[CPPMGraphPoints.keySet().size()];
             int i = 0;
             for (Integer key : CPPMGraphPoints.keySet()) {
-                keySet[i] = key;
-                i++;
+                keySet[i++] = key;
             }
             Arrays.sort(keySet);
             for (Integer key : keySet) {
@@ -80,14 +80,16 @@ public class HistoryGraphActivity extends AppCompatActivity {
                 VPPMArray[j] = VPPMValues.get(j);
                 CPPMArray[j] = CPPMValues.get(j);
             }
-            LineGraphSeries<DataPoint> VPPMseries = new LineGraphSeries<>(VPPMArray);
-            VPPMseries.setTitle("PPM over " + year);
-            VPPMseries.setDrawDataPoints(true);
-            graph.addSeries(VPPMseries);
-            LineGraphSeries<DataPoint> CPPMseries = new LineGraphSeries<>(CPPMArray);
-            CPPMseries.setTitle("PPM over " + year);
-            CPPMseries.setDrawDataPoints(true);
-            graph.addSeries(CPPMseries);
+            LineGraphSeries<DataPoint> VPPMSeries = new LineGraphSeries<>(VPPMArray);
+            VPPMSeries.setTitle("PPM over " + year);
+            VPPMSeries.setDrawDataPoints(true);
+            VPPMSeries.setColor(Color.RED);
+            graph.addSeries(VPPMSeries);
+            LineGraphSeries<DataPoint> CPPMSeries = new LineGraphSeries<>(CPPMArray);
+            CPPMSeries.setTitle("PPM over " + year);
+            CPPMSeries.setDrawDataPoints(true);
+            CPPMSeries.setColor(Color.CYAN);
+            graph.addSeries(CPPMSeries);
         } else {
             Context context = getApplicationContext();
             CharSequence text = "Empty field(s)";

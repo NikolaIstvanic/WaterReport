@@ -59,9 +59,13 @@ public class ProfileActivity extends AppCompatActivity {
         }
         if (mCurrentUser.getmTitle() != null) {
             int i  = 0;
-            for (String s: legalTitles)
-                if (s.equals(mCurrentUser.getmTitle())) break;
-                else i++;
+            for (String s: legalTitles) {
+                if (s.equals(mCurrentUser.getmTitle())) {
+                    break;
+                } else {
+                    i++;
+                }
+            }
             mTitle.setSelection(i);
         }
         if (mCurrentUser.getmHomeAddress() != null) {
