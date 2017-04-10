@@ -107,23 +107,28 @@ public class SubmitQualityReportActivity extends AppCompatActivity {
         } else {
             Geocoder gc = new Geocoder(this);
             List<Address> list = gc.getFromLocationName(location, 1);
-            Address add = list.get(0);
-            double lat = add.getLatitude();
-            double lng = add.getLongitude();
-            // log quality report
-            QualityReport q = new QualityReport(
-                    String.valueOf(((TextView) findViewById(R.id.user_name)).getText()),
-                    String.valueOf(((TextView) findViewById(R.id.text_time)).getText()),
-                    Singleton.getInstance().qualityreports.size() + 1, String.valueOf(mLocation.getText()),
-                    condition.getSelectedItem().toString(), v, c, lat, lng);
-            Singleton.getInstance().qualityreports.add(q);
-            Singleton.getInstance().addQualityReport(q);
-            Context context = getApplicationContext();
-            CharSequence text = "Report Submitted !!";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
-            finish();
-            toast.show();
+            try {
+                Address add = list.get(0);
+                double lat = add.getLatitude();
+                double lng = add.getLongitude();
+                // log quality report
+                QualityReport q = new QualityReport(
+                        String.valueOf(((TextView) findViewById(R.id.user_name)).getText()),
+                        String.valueOf(((TextView) findViewById(R.id.text_time)).getText()),
+                        Singleton.getInstance().qualityreports.size() + 1, String.valueOf(mLocation.getText()),
+                        condition.getSelectedItem().toString(), v, c, lat, lng);
+                Singleton.getInstance().qualityreports.add(q);
+                Singleton.getInstance().addQualityReport(q);
+                Context context = getApplicationContext();
+                CharSequence text = "Report Submitted !!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                finish();
+                toast.show();
+            } catch (IndexOutOfBoundsException ioobe) {
+                mLocation.setError(getString(R.string.error_invalid_location));
+                mLocation.requestFocus();
+            }
         }
     }
 }

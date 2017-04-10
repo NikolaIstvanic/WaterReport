@@ -89,25 +89,30 @@ public class ReportActivity extends AppCompatActivity {
         } else {
             Geocoder gc = new Geocoder(this);
             List<Address> list = gc.getFromLocationName(location, 1);
-            Address add = list.get(0);
-            double lat = add.getLatitude();
-            double lng = add.getLongitude();
-            // log water report
-            User currentUser = Singleton.getInstance().mappings.get(getIntent().getExtras().getString(Intent.EXTRA_USER));
-            WaterReport w = new WaterReport(
-                    currentUser.getmUserName(),
-                    String.valueOf(((TextView) findViewById(R.id.text_time)).getText()),
-                    Singleton.getInstance().waterreports.size() + 1, String.valueOf(mLocation.getText()),
-                    source.getSelectedItem().toString(), condition.getSelectedItem().toString(),
-                    lat, lng);
-            Singleton.getInstance().waterreports.add(w);
-            Singleton.getInstance().addWaterReport(w);
-            Context context = getApplicationContext();
-            CharSequence text = "Report Submitted !!";
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(context, text, duration);
-            finish();
-            toast.show();
+            try {
+                Address add = list.get(0);
+                double lat = add.getLatitude();
+                double lng = add.getLongitude();
+                // log water report
+                User currentUser = Singleton.getInstance().mappings.get(getIntent().getExtras().getString(Intent.EXTRA_USER));
+                WaterReport w = new WaterReport(
+                        currentUser.getmUserName(),
+                        String.valueOf(((TextView) findViewById(R.id.text_time)).getText()),
+                        Singleton.getInstance().waterreports.size() + 1, String.valueOf(mLocation.getText()),
+                        source.getSelectedItem().toString(), condition.getSelectedItem().toString(),
+                        lat, lng);
+                Singleton.getInstance().waterreports.add(w);
+                Singleton.getInstance().addWaterReport(w);
+                Context context = getApplicationContext();
+                CharSequence text = "Report Submitted !!";
+                int duration = Toast.LENGTH_SHORT;
+                Toast toast = Toast.makeText(context, text, duration);
+                finish();
+                toast.show();
+            } catch (IndexOutOfBoundsException ioobe) {
+                mLocation.setError(getString(R.string.error_invalid_location));
+                mLocation.requestFocus();
+            }
         }
     }
 }
