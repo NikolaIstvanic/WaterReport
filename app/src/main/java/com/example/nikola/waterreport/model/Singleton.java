@@ -138,6 +138,7 @@ public class Singleton {
         userrs.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.print("change");
                 // This method is called once with the initial value and again whenever data at this location is updated.
                 Object o = dataSnapshot.getValue();
                 if (!(o instanceof ArrayList)) {
@@ -265,6 +266,7 @@ public class Singleton {
         userDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.print("jhererererer");
                 // This method is called once with the initial value and again whenever data at this location is updated.
                 Object o = dataSnapshot.getValue();
                 if (!(o instanceof ArrayList)) {
