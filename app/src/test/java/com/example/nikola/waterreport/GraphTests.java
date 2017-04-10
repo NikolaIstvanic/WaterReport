@@ -1,12 +1,9 @@
 package com.example.nikola.waterreport;
 
-import android.util.Log;
-
 import com.example.nikola.waterreport.model.QualityReport;
 import com.example.nikola.waterreport.model.User;
 import com.example.nikola.waterreport.model.Singleton;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -25,7 +22,6 @@ import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;

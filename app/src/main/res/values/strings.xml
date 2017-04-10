@@ -77,9 +77,7 @@
     <string name="ReportID">Report ID: %d</string>
     <string name="none">No Water Reports Created</string>
     <string name="Location">Location:</string>
-    <string name="Virus">Virus/Contaminant:</string>
     <string name="Year">Year:</string>
-    <string name="Submit">Submit</string>
     <string name="quality">Submit Quality Report</string>
     <string name="contaminant_label">Contaminant PPM:</string>
     <string name="virus_label">Virus PPM:</string>
