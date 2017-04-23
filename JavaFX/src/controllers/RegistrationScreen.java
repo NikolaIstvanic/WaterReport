@@ -15,7 +15,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -39,8 +38,6 @@ public class RegistrationScreen extends Application {
 
     @Override
     public void start(Stage stage) {
-    	BorderPane main = new BorderPane();
-
     	RadioButton user = new RadioButton("User");
     	user.setToggleGroup(group);
     	user.setSelected(true);
@@ -74,9 +71,9 @@ public class RegistrationScreen extends Application {
 
         GridPane grid = new GridPane();
         Label userlabel = new Label("Username:");
-        Label email = new Label("Email: ");
-        Label pass1 = new Label("Password: ");
-        Label pass2 = new Label("Re-enter password: ");
+        Label email = new Label("Email:");
+        Label pass1 = new Label("Password:");
+        Label pass2 = new Label("Re-enter password:");
 
         GridPane.setConstraints(userlabel, 0, 0);
         GridPane.setConstraints(email, 0, 1);
@@ -104,8 +101,7 @@ public class RegistrationScreen extends Application {
         v.getChildren().addAll(grid, b);
         v.setAlignment(Pos.CENTER);
 
-        main.setCenter(v);
-        stage.setScene(new Scene(main, 500, 300));
+        stage.setScene(new Scene(v, 500, 300));
         stage.setTitle("Register");
         stage.show();
     }
