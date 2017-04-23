@@ -5,6 +5,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
+
 /**
  * @author Nikola Istvanic
  */
@@ -68,15 +72,15 @@ public class Singleton {
      * @param year year string
      * @return map of graph points
      */
-    public HashMap<Integer, Double> VPPMValues(String location, String year) {
-        HashMap<Integer, Double> values = new HashMap<>();
+    public ObservableList<XYChart.Data<Number, Number>> VPPMValues(String location, String year) {
+    	ObservableList<XYChart.Data<Number, Number>> values = FXCollections.observableArrayList();
         int[] months = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         for (int i = 1; i <= 12; i++) {
             int num = 0;
             double sum = 0;
             for (QualityReport q : qualityreports) {
-                String r_year = q.getmTime().split(" ")[1].substring(6, 10);
-                Integer reportMonth = Integer.parseInt(q.getmTime().split(" ")[1].substring(0, 2));
+                String r_year = q.getmTime().split(" ")[0].substring(6, 10);
+                Integer reportMonth = Integer.parseInt(q.getmTime().split(" ")[0].substring(0, 2));
                 if (q.getmLocation().equals(location) && r_year.equals(year) && reportMonth == i) {
                     sum += q.getmVirusPPM();
                     num++;
@@ -84,7 +88,7 @@ public class Singleton {
             }
             double avg = num == 0 ? 0 : sum / num;
             if (num != 0) {
-                values.put(months[i - 1], avg);
+                values.add(new XYChart.Data<>(months[i - 1], avg));
             }
         }
         return values;
@@ -96,15 +100,15 @@ public class Singleton {
      * @param year year string
      * @return map of graph points
      */
-    public HashMap<Integer, Double> CPPMValues(String location, String year) {
-        HashMap<Integer, Double> values = new HashMap<>();
+    public ObservableList<XYChart.Data<Number, Number>> CPPMValues(String location, String year) {
+    	ObservableList<XYChart.Data<Number, Number>> values = FXCollections.observableArrayList();
         int[] months = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         for (int i = 1; i <= 12; i++) {
             int num = 0;
             double sum = 0;
             for (QualityReport q : qualityreports) {
-                String r_year = q.getmTime().split(" ")[1].substring(6, 10);
-                Integer reportMonth = Integer.parseInt(q.getmTime().split(" ")[1].substring(0, 2));
+                String r_year = q.getmTime().split(" ")[0].substring(6, 10);
+                Integer reportMonth = Integer.parseInt(q.getmTime().split(" ")[0].substring(0, 2));
                 if (q.getmLocation().equals(location) && r_year.equals(year) && reportMonth == i) {
                     sum += q.getmContaminantPPM();
                     num++;
@@ -112,7 +116,7 @@ public class Singleton {
             }
             double avg = num == 0 ? 0 : sum / num;
             if (num != 0) {
-                values.put(months[i - 1], avg);
+            	values.add(new XYChart.Data<>(months[i - 1], avg));
             }
         }
         return values;
