@@ -4,11 +4,12 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Singleton;
+import model.WaterReport;
 
 /**
  * A login screen that offers login via username/password.
@@ -21,28 +22,59 @@ public class MainScreen extends Application {
 
     @Override
     public void start(Stage stage) {
-        BorderPane main = new BorderPane();
-
         Button logout = new Button("Logout");
         logout.setOnAction(e -> new LoginScreen().start(stage));
 
         Button profile = new Button("Profile");
-        profile.setOnAction(e -> new ProfileScreen().start(stage));
+        profile.setOnAction(e -> {
+        	ProfileScreen p = new ProfileScreen();
+        	p.setUsername(username);
+        	p.start(stage);
+        });
 
         Button history = new Button("History");
-        history.setOnAction(e -> new HistoryScreen().start(stage));
+        history.setOnAction(e -> {
+        	Stage helper = new Stage();
+            TextArea a = new TextArea();
+            a.setWrapText(true);
+            a.setEditable(false);
+            for (WaterReport wr : Singleton.getInstance().waterreports) {
+            	a.appendText(wr.toString());
+            }
+            helper.setTitle("Water Report History");
+            helper.setScene(new Scene(a));
+            helper.show();
+        });
 
-        Button create = new Button("Create");
-        create.setOnAction(e -> new CreateScreen().start(stage));
+        Button create = new Button("Submit Report");
+        create.setOnAction(e -> {
+    		SubmitWaterScreen s = new SubmitWaterScreen();
+    		s.setUsername(username);
+    		s.start(stage);
+        });
 
         HBox bottom = new HBox(10);
         bottom.getChildren().addAll(create, history);
         bottom.setAlignment(Pos.CENTER);
 
+        if (Singleton.getInstance().mappings.get(username).getmPosition().equals("Worker")) {
+        	Button quality = new Button("Submit Quality Report");
+        	quality.setOnAction(e -> {
+        		SubmitQualityScreen s = new SubmitQualityScreen();
+        		s.setUsername(username);
+        		s.start(stage);
+        	});
+        	bottom.getChildren().add(quality);
+        }
+
         /* Check if Manager type of User */
         if (Singleton.getInstance().mappings.get(username).getmPosition().equals("Manager")) {
         	Button graph = new Button("Graph");
-        	graph.setOnAction(e -> new GraphScreen().start(stage));
+        	graph.setOnAction(e -> {
+        		GraphScreen g = new GraphScreen();
+        		g.setUsername(username);
+        		g.start(stage);
+        	});
         	bottom.getChildren().add(graph);
         }
 
@@ -54,8 +86,7 @@ public class MainScreen extends Application {
         v.getChildren().addAll(top, bottom);
         v.setAlignment(Pos.CENTER);
 
-        main.setCenter(v);
-        stage.setScene(new Scene(main, 500, 200));
+        stage.setScene(new Scene(v, 500, 200));
         stage.setTitle("Water Report");
         stage.show();
     }
@@ -66,7 +97,7 @@ public class MainScreen extends Application {
      *
      * @param username current user's username
      */
-    public void setUser(String username) {
+    public void setUsername(String username) {
     	this.username = username;
     }
 }
