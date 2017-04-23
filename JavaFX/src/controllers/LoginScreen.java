@@ -12,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -28,8 +27,6 @@ public class LoginScreen extends Application {
 
     @Override
     public void start(Stage stage) {
-        BorderPane main = new BorderPane();
-
         userText = new TextField();
         passText = new PasswordField();
 
@@ -61,8 +58,7 @@ public class LoginScreen extends Application {
         VBox v = new VBox(5);
         v.getChildren().addAll(u, p, b);
         v.setAlignment(Pos.CENTER);
-        main.setCenter(v);
-        stage.setScene(new Scene(main, 500, 200));
+        stage.setScene(new Scene(v, 500, 200));
         stage.setTitle("Water Report Login");
         stage.show();
     }
@@ -102,7 +98,7 @@ public class LoginScreen extends Application {
     	// Successful login
     	if (!wrongcancel) {
     		MainScreen m = new MainScreen();
-    		m.setUser(username); // pass current user's information down
+    		m.setUsername(username); // pass current user's information down
         	m.start(stage);
     	}
     }
