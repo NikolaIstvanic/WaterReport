@@ -1,11 +1,13 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Quality/Purity report information holder.
  *
  * Created by Nikola Istvanic.
  */
-public class QualityReport {
+public class QualityReport implements Serializable{
     private String mUserName;
     private String mTime;
     private int mId;

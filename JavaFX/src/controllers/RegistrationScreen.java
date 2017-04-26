@@ -166,6 +166,7 @@ public class RegistrationScreen extends Application {
             userToAdd.setmHomeAddress("");
             userToAdd.setmTitle("Mr.");
             Singleton.getInstance().addToMappings(username, userToAdd);
+            Singleton.getInstance().updateUsers();
             new LoginScreen().start(stage);
     	}
     }

@@ -13,6 +13,7 @@ public class User {
     private String mHomeAddress;
     private String mTitle;
     private String mPosition;
+    private int mFailedLoginAttempts;
 
     /**
      * No arg constructor (for Firebase)
@@ -58,13 +59,23 @@ public class User {
         this.mTitle = mTitle;
     }
 
+
     /**
      * Checks if the parameter password is the correct password
      * @param password password being checked
      * @return true whether the parameter password is correct; false otherwise
      */
     public boolean authenticate(String password) {
-        return password != null && password.equals(mPassword);
+        if (mFailedLoginAttempts >= 3) {
+            return false;
+        }
+        boolean valid = password != null && password.equals(mPassword);
+        if (valid) {
+            mFailedLoginAttempts = 0;
+        } else {
+            mFailedLoginAttempts++;
+        }
+        return valid;
     }
 
     /**
@@ -174,6 +185,7 @@ public class User {
         d.put("homeaddress", mHomeAddress);
         d.put("title", mTitle);
         d.put("position", mPosition);
+        d.put("loginattempts", String.valueOf(mFailedLoginAttempts));
         u.put(mUserName, d);
         return u;
     }

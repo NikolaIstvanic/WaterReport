@@ -27,6 +27,7 @@ public class LoginScreen extends Application {
 
     @Override
     public void start(Stage stage) {
+        Singleton.getInstance().update();
         userText = new TextField();
         passText = new PasswordField();
 

@@ -1,5 +1,9 @@
 package model;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -120,5 +124,87 @@ public class Singleton {
             }
         }
         return values;
+    }
+
+    public void update() {
+        String filename = "users.dat";
+        FileInputStream inputStream;
+        try {
+            inputStream = new FileInputStream(filename);
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            mappings = (Map<String, User>) objectInputStream.readObject();
+            objectInputStream.close();
+            inputStream.close();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+            System.err.println("Unable to load user data.");
+        }
+        filename = "reports.dat";
+        try {
+            inputStream = new FileInputStream(filename);
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            waterreports = (Set<WaterReport>) objectInputStream.readObject();
+            objectInputStream.close();
+            inputStream.close();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+            System.err.println("Unable to load report data.");
+        }
+        filename = "quality.dat";
+        try {
+            inputStream = new FileInputStream(filename);
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            qualityreports = (Set<QualityReport>) objectInputStream.readObject();
+            objectInputStream.close();
+            inputStream.close();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+            System.err.println("Unable to load user data.");
+        }
+    }
+
+    public void updateWaterReports() {
+        String filename = "reports.dat";
+        FileOutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream(filename);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(waterreports);
+            objectOutputStream.close();
+            outputStream.close();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+            System.err.println("Unable to save water report data.");
+        }
+    }
+
+    public void updateQualityReports() {
+        String filename = "quality.dat";
+        FileOutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream(filename);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(qualityreports);
+            objectOutputStream.close();
+            outputStream.close();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+            System.err.println("Unable to save quality report data.");
+        }
+    }
+
+    public void updateUsers() {
+        String filename = "users.dat";
+        FileOutputStream outputStream;
+        try {
+            outputStream = new FileOutputStream(filename);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(mappings);
+            objectOutputStream.close();
+            outputStream.close();
+        } catch (Exception e) {
+            System.err.println(e.toString());
+            System.err.println("Unable to save quality report data.");
+        }
     }
 }

@@ -101,6 +101,7 @@ public class SubmitWaterScreen extends Application {
                     date.getText().toString(), Singleton.getInstance().waterreports.size() + 1,
                     locationText.getText().toString(), sourceSel, condSel);
             Singleton.getInstance().waterreports.add(w);
+            Singleton.getInstance().updateWaterReports();
             MainScreen m = new MainScreen();
             m.setUsername(username);
             m.start(stage);

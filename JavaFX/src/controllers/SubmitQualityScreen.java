@@ -133,6 +133,7 @@ public class SubmitQualityScreen extends Application {
                     Singleton.getInstance().qualityreports.size() + 1,
                     locationText.getText().toString(), condSel, v, c);
             Singleton.getInstance().qualityreports.add(q);
+            Singleton.getInstance().updateQualityReports();
             MainScreen m = new MainScreen();
             m.setUsername(username);
             m.start(stage);

@@ -51,6 +51,7 @@ public class ProfileScreen extends Application {
 			stage.close();
         	MainScreen m = new MainScreen();
         	m.setUsername(username);
+        	Singleton.getInstance().updateUsers();
         	m.start(stage);
         });
 
